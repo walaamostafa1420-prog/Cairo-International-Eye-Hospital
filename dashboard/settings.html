@@ -496,7 +496,7 @@
                 </div>
 
 
-                <!-- LANGUAGE -->
+                
 
                 <div class="settings-card">
 
@@ -558,7 +558,7 @@
                 </div>
 
 
-                <!-- NOTIFICATIONS -->
+                
 
                 <div class="settings-card">
 
@@ -665,7 +665,7 @@
                 </div>
 
 
-                <!-- PASSWORD -->
+                
 
                 <div class="settings-card">
 
@@ -779,7 +779,7 @@
                 </div>
 
 
-                <!-- SYSTEM -->
+                
 
                 <div class="settings-card full">
 
@@ -896,10 +896,6 @@
 
     <script>
 
-        /* =========================
-           LANGUAGE
-        ========================= */
-
         const languageButtons =
             document.querySelectorAll(".language-btn");
 
@@ -955,9 +951,7 @@
         });
 
 
-        /* =========================
-           ACCOUNT
-        ========================= */
+        
 
         document
             .getElementById("saveAccount")
@@ -992,9 +986,7 @@
             );
 
 
-        /* =========================
-           NOTIFICATIONS
-        ========================= */
+    
 
         const notificationIds = [
 
@@ -1019,9 +1011,7 @@
         });
 
 
-        /* =========================
-           SYSTEM SETTINGS
-        ========================= */
+        
 
         document
             .getElementById("autoSave")
@@ -1097,10 +1087,6 @@
 
         }
 
-
-        /* =========================
-           PASSWORD
-        ========================= */
 
         document
             .querySelectorAll(".show-password")
@@ -1216,14 +1202,10 @@
             );
 
 
-        /* =========================
-           LOAD SETTINGS
-        ========================= */
+        
 
         function loadSettings() {
-            /* =========================
-   FULL LANGUAGE TRANSLATION
-========================= */
+            
 
 const translations = {
 
@@ -1365,7 +1347,6 @@ function applyLanguage(lang) {
         lang === "en" ? "LTR" : "RTL";
 
 
-    /* Sidebar */
 
     const menuItems =
         document.querySelectorAll(".sidebar-menu .menu-item span");
@@ -1395,7 +1376,7 @@ function applyLanguage(lang) {
     ).textContent = t.backWebsite;
 
 
-    /* Header */
+    
 
     document.querySelector(
         ".page-title h1"
@@ -1407,7 +1388,6 @@ function applyLanguage(lang) {
     ).textContent = t.subtitle;
 
 
-    /* Account */
 
     const cards =
         document.querySelectorAll(".settings-card");
@@ -1435,8 +1415,6 @@ function applyLanguage(lang) {
         t.saveAccount;
 
 
-    /* Language */
-
     cards[1].querySelector("h2").textContent =
         t.language;
 
@@ -1450,7 +1428,7 @@ function applyLanguage(lang) {
         t.directionDesc;
 
 
-    /* Notifications */
+    
 
     cards[2].querySelector("h2").textContent =
         t.notifications;
@@ -1496,7 +1474,6 @@ function applyLanguage(lang) {
         t.testResultsDesc;
 
 
-    /* Security */
 
     cards[3].querySelector("h2").textContent =
         t.security;
@@ -1542,7 +1519,7 @@ function applyLanguage(lang) {
         t.changePassword;
 
 
-    /* System */
+    
 
     cards[4].querySelector("h2").textContent =
         t.system;
@@ -1592,7 +1569,7 @@ function applyLanguage(lang) {
 }
 
 
-/* Language buttons */
+
 
 languageButtons.forEach(function(button) {
 
@@ -1622,7 +1599,7 @@ languageButtons.forEach(function(button) {
 });
 
 
-/* Load saved language */
+
 
 const savedLanguage =
     localStorage.getItem("ciehLanguage") || "ar";
@@ -1724,9 +1701,7 @@ applyLanguage(savedLanguage);
         }
 
 
-        /* =========================
-           SUCCESS
-        ========================= */
+
 
         function showSuccess() {
 
@@ -1750,9 +1725,7 @@ applyLanguage(savedLanguage);
         }
 
 
-        /* =========================
-           LOGOUT
-        ========================= */
+        
 
         document
             .getElementById("logoutButton")
@@ -1777,9 +1750,7 @@ applyLanguage(savedLanguage);
             );
 
 
-        /* =========================
-           MOBILE SIDEBAR
-        ========================= */
+        
 
         const menuToggle =
             document.getElementById("menuToggle");
