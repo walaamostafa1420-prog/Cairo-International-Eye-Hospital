@@ -18,13 +18,13 @@
         href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
         rel="stylesheet">
 
-    <!-- نفس تصميم الـ Dashboard -->
+    
     <link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>
 
-    <!-- ================= SIDEBAR ================= -->
+    
 
     <aside class="sidebar" id="sidebar">
 
@@ -109,7 +109,7 @@
     </aside>
 
 
-    <!-- ================= MAIN ================= -->
+    
 
     <main class="main-content">
 
@@ -158,12 +158,12 @@
         </header>
 
 
-        <!-- ================= CONTENT ================= -->
+        
 
         <section class="dashboard-content">
 
 
-            <!-- PAGE HEADER -->
+            
 
             <div class="dashboard-card">
 
@@ -194,7 +194,7 @@
                 </div>
 
 
-                <!-- SEARCH -->
+                
 
                 <div class="patients-tools">
 
@@ -230,9 +230,6 @@
                 </div>
 
             </div>
-
-
-            <!-- ================= PATIENT STATS ================= -->
 
             <div class="stats-grid">
 
@@ -322,7 +319,7 @@
             </div>
 
 
-            <!-- ================= PATIENT TABLE ================= -->
+            
 
             <div class="dashboard-card">
 
@@ -700,7 +697,7 @@
     </main>
 
 
-    <!-- ================= ADD PATIENT MODAL ================= -->
+    
 
     <div class="patient-modal" id="patientModal">
 
@@ -880,7 +877,7 @@
 
     <script>
 
-        // فتح نافذة إضافة مريض
+        
         function openPatientForm() {
             document
                 .getElementById("patientModal")
@@ -888,7 +885,6 @@
         }
 
 
-        // إغلاق النافذة
         function closePatientForm() {
             document
                 .getElementById("patientModal")
@@ -896,7 +892,7 @@
         }
 
 
-        // البحث عن المرضى
+        
         const searchInput =
             document.getElementById("patientSearch");
 
@@ -958,7 +954,7 @@
         });
 
 
-        // القائمة الجانبية للموبايل
+        
         const menuToggle =
             document.getElementById("menuToggle");
 
@@ -976,7 +972,7 @@
         }
 
 
-        // منع إرسال النموذج فعليًا مؤقتًا
+       
         document
             .getElementById("patientForm")
             .addEventListener("submit", function (event) {
