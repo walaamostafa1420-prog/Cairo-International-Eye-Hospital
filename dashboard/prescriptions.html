@@ -388,7 +388,7 @@
             <div class="prescription-layout">
 
 
-                <!-- FORM -->
+                
 
                 <div class="prescription-card">
 
@@ -619,7 +619,7 @@
                 </div>
 
 
-                <!-- PREVIEW -->
+                
 
                 <div class="prescription-preview">
 
@@ -711,9 +711,7 @@
 
     <script>
 
-        /* =========================
-           ELEMENTS
-        ========================= */
+        
 
         const prescriptionForm =
             document.getElementById("prescriptionForm");
@@ -752,9 +750,7 @@
         let medicines = [];
 
 
-        /* =========================
-           LIVE PREVIEW
-        ========================= */
+    
 
         patientName.addEventListener("input", function () {
 
@@ -781,11 +777,6 @@
             ).textContent = this.value || "—";
 
         });
-
-
-        /* =========================
-           ADD MEDICINE
-        ========================= */
 
         document
             .getElementById("addMedicine")
@@ -839,9 +830,7 @@
             });
 
 
-        /* =========================
-           RENDER MEDICINES
-        ========================= */
+    
 
         function renderMedicines() {
 
@@ -924,9 +913,7 @@
         }
 
 
-        /* =========================
-           REMOVE MEDICINE
-        ========================= */
+
 
         function removeMedicine(id) {
 
@@ -942,9 +929,7 @@
         }
 
 
-        /* =========================
-           SAVE PRESCRIPTION
-        ========================= */
+        
 
         prescriptionForm
             .addEventListener("submit", function (event) {
@@ -1033,9 +1018,6 @@
             });
 
 
-        /* =========================
-           MOBILE SIDEBAR
-        ========================= */
 
         const menuToggle =
             document.getElementById("menuToggle");
