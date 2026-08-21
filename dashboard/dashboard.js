@@ -1,12 +1,6 @@
-// =========================
-// DASHBOARD JAVASCRIPT
-// =========================
+
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    // =========================
-    // MOBILE SIDEBAR
-    // =========================
 
     const menuToggle = document.getElementById("menuToggle");
     const sidebar = document.getElementById("sidebar");
@@ -18,9 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // =========================
-    // DASHBOARD STATISTICS
-    // =========================
 
     const patientsCount = document.getElementById("patientsCount");
     const doctorsCount = document.getElementById("doctorsCount");
@@ -28,9 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const diagnosisCount = document.getElementById("diagnosisCount");
 
 
-    // بيانات مؤقتة للواجهة
-    // بعد ما الـ Backend يجهز API
-    // هنستبدلها بالبيانات الحقيقية
+    
 
     const dashboardData = {
         patients: 1250,
@@ -57,10 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // =========================
-    // CLOSE SIDEBAR
-    // WHEN CLICKING OUTSIDE
-    // =========================
+    
 
     document.addEventListener("click", (event) => {
 
@@ -85,9 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // =========================
-    // NOTIFICATION BUTTON
-    // =========================
+    
 
     const notificationButton =
         document.querySelector(".icon-button");
@@ -103,9 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // =========================
-    // ACTIVE MENU
-    // =========================
+    
 
     const menuItems =
         document.querySelectorAll(".menu-item");
