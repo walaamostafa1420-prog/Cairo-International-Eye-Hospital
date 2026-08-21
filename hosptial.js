@@ -38,14 +38,13 @@ function changeLanguage(language) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // تشغيل اللغة المحفوظة
     const savedLanguage =
         localStorage.getItem("language") || "ar";
 
     changeLanguage(savedLanguage);
 
 
-    // فتح وإغلاق قائمة الموبايل
+
     const menuToggle =
         document.getElementById("menuToggle");
 
