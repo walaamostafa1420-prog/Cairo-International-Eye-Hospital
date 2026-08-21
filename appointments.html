@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>حجز موعد | CIEH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        .booking-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+        }
+
+        .booking-card {
+            background: white;
+            border: 1px solid #e6edf1;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .booking-header {
+            margin-bottom: 25px;
+        }
+
+        .booking-header h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .booking-header p {
+            color: #8a9aa5;
+            font-size: 11px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #183b4d;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            height: 45px;
+            border: 1px solid #e6edf1;
+            border-radius: 10px;
+            padding: 0 13px;
+            font-family: inherit;
+            font-size: 11px;
+            color: #183b4d;
+            outline: none;
+            background: #fff;
+        }
+
+        .form-group textarea {
+            height: 90px;
+            padding-top: 12px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #176b87;
+            box-shadow: 0 0 0 3px rgba(23, 107, 135, .08);
+        }
+
+        .selected-doctor {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #eef8fa;
+            border: 1px solid #d8eef2;
+            margin-bottom: 22px;
+        }
+
+        .selected-doctor-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: white;
+            color: #176b87;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .selected-doctor-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .selected-doctor-info span {
+            font-size: 9px;
+            color: #8a9aa5;
+        }
+
+        .selected-doctor-info strong {
+            font-size: 13px;
+        }
+
+        .change-doctor {
+            margin-right: auto;
+            border: none;
+            background: transparent;
+            color: #176b87;
+            font-family: inherit;
+            font-size: 9px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .time-title {
+            font-size: 12px;
+            font-weight: 700;
+            margin: 22px 0 12px;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 9px;
+        }
+
+        .time-slot {
+            height: 40px;
+            border: 1px solid #e6edf1;
+            background: white;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 9px;
+            color: #607681;
+            cursor: pointer;
+        }
+
+        .time-slot:hover {
+            border-color: #176b87;
+            color: #176b87;
+        }
+
+        .time-slot.selected {
+            background: #176b87;
+            color: white;
+            border-color: #176b87;
+        }
+
+        .time-slot.disabled {
+            background: #f5f7f8;
+            color: #b7c1c6;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        .booking-summary {
+            background: linear-gradient(145deg, #176b87, #35b7a8);
+            color: white;
+            border-radius: 16px;
+            padding: 25px;
+            min-height: 350px;
+        }
+
+        .booking-summary h3 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .booking-summary > p {
+            font-size: 10px;
+            opacity: .8;
+            margin-bottom: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,.18);
+            font-size: 10px;
+        }
+
+        .summary-row span:first-child {
+            opacity: .75;
+        }
+
+        .summary-row strong {
+            text-align: left;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            height: 48px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            color: #176b87;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .confirm-btn:hover {
+            background: #f1fbfc;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 15px;
+            padding: 13px;
+            border-radius: 10px;
+            background: #e9f8f1;
+            color: #20835f;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .booking-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .selected-doctor {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                <i class="ri-eye-line"></i>
+            </div>
+
+            <div>
+                <strong>CIEH</strong>
+                <span>Eye Hospital</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item">
+                <i class="ri-dashboard-line"></i>
+                <span>لوحة التحكم</span>
+            </a>
+
+            <a href="patients.html" class="menu-item">
+                <i class="ri-user-heart-line"></i>
+                <span>المرضى</span>
+            </a>
+
+            <a href="doctors.html" class="menu-item">
+                <i class="ri-stethoscope-line"></i>
+                <span>الأطباء</span>
+            </a>
+
+            <a href="appointments.html" class="menu-item active">
+                <i class="ri-calendar-check-line"></i>
+                <span>المواعيد</span>
+            </a>
+
+            <a href="medical-records.html" class="menu-item">
+                <i class="ri-file-medical-line"></i>
+                <span>السجلات الطبية</span>
+            </a>
+
+            <a href="diagnosis.html" class="menu-item">
+                <i class="ri-heart-pulse-line"></i>
+                <span>التشخيص</span>
+            </a>
+
+            <a href="prescriptions.html" class="menu-item">
+                <i class="ri-capsule-line"></i>
+                <span>الروشتات</span>
+            </a>
+
+            <a href="tests.html" class="menu-item">
+                <i class="ri-microscope-line"></i>
+                <span>التحاليل والأشعة</span>
+            </a>
+
+            <a href="messages.html" class="menu-item">
+                <i class="ri-message-3-line"></i>
+                <span>الرسائل</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="menu-item">
+                <i class="ri-settings-3-line"></i>
+                <span>الإعدادات</span>
+            </a>
+
+            <a href="../index.html" class="menu-item logout">
+                <i class="ri-logout-box-r-line"></i>
+                <span>العودة للموقع</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="ri-menu-line"></i>
+            </button>
+
+            <div class="page-title">
+
+                <h1>حجز موعد</h1>
+
+                <p>
+                    احجز موعدك مع الطبيب الذي اخترته
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        <i class="ri-user-line"></i>
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>المريض</strong>
+                        <span>Patient</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="dashboard-content">
+            <div class="booking-card" style="margin-top: 20px;">
+
+    <div class="booking-header">
+        <h2>المواعيد المحجوزة</h2>
+        <p>جميع المواعيد التي تم تأكيدها</p>
+    </div>
+
+    <div id="appointmentsList"></div>
+
+</div>
+
+
+            <div class="booking-layout">
+
+
+                <!-- FORM -->
+
+                <div class="booking-card">
+
+                    <div class="booking-header">
+
+                        <h2>
+                            حجز موعد جديد
+                        </h2>
+
+                        <p>
+                            أدخل بياناتك واختر الموعد المناسب لك
+                        </p>
+
+                    </div>
+
+
+                    <!-- SELECTED DOCTOR -->
+
+                    <div class="selected-doctor">
+
+                        <div class="selected-doctor-icon">
+                            <i class="ri-stethoscope-line"></i>
+                        </div>
+
+                        <div class="selected-doctor-info">
+
+                            <span>
+                                الطبيب المختار
+                            </span>
+
+                            <strong id="selectedDoctor">
+                                لم يتم اختيار طبيب
+                            </strong>
+
+                        </div>
+
+                        <button
+                            class="change-doctor"
+                            onclick="goToDoctors()">
+
+                            تغيير الطبيب
+
+                        </button>
+
+                    </div>
+
+
+                    <form id="bookingForm">
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    اسم المريض
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="patientName"
+                                    placeholder="اكتب اسمك بالكامل"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    رقم الهاتف
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    placeholder="01xxxxxxxxx"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    البريد الإلكتروني
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    placeholder="example@email.com"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    تاريخ الميلاد
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="birthDate"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    تاريخ الموعد
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="appointmentDate"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    نوع الزيارة
+                                </label>
+
+                                <select
+                                    id="visitType"
+                                    required>
+
+                                    <option value="">
+                                        اختر نوع الزيارة
+                                    </option>
+
+                                    <option>
+                                        كشف جديد
+                                    </option>
+
+                                    <option>
+                                        متابعة
+                                    </option>
+
+                                    <option>
+                                        استشارة
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    سبب الزيارة
+                                </label>
+
+                                <textarea
+                                    id="reason"
+                                    placeholder="اكتب سبب الحجز أو الأعراض باختصار..."
+                                ></textarea>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="time-title">
+                            اختر وقت الموعد
+                        </div>
+
+
+                        <div class="time-slots">
+
+                            <button
+                                type="button"
+                                class="time-slot"
+                                data-time="09:00 ص">
+                                09:00 ص
+                            </button>
+
+                            <button
+                                type="button"
+                                class="time-slot"
+                                data-time="10:00 ص">
+                                10:00 ص
+                            </button>
+
+                            <button
+                                type="button"
+                                class="time-slot"
+                                data-time="11:00 ص">
+                                11:00 ص
+                            </button>
+
+                            <button
+                                type="button"
+                                class="time-slot"
+                                data-time="12:00 م">
+                                12:00 م
+                            </button>
+
+                            <button
+                                type="button"
+                                class="time-slot"
+                                data-time="01:00 م">
+                                01:00 م
+                            </button>
+
+                            <button
+                                type="button"
+                                class="time-slot"
+                                data-time="02:00 م">
+                                02:00 م
+                            </button>
+
+                            <button
+                                type="button"
+                                class="time-slot"
+                                data-time="03:00 م">
+                                03:00 م
+                            </button>
+
+                            <button
+                                type="button"
+                                class="time-slot"
+                                data-time="04:00 م">
+                                04:00 م
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="success-message"
+                            id="successMessage">
+
+                            تم إرسال طلب الحجز بنجاح.
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+
+                <!-- SUMMARY -->
+
+                <div class="booking-summary">
+
+                    <h3>
+                        ملخص الحجز
+                    </h3>
+
+                    <p>
+                        راجع بيانات الموعد قبل التأكيد
+                    </p>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            الطبيب
+                        </span>
+
+                        <strong id="summaryDoctor">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            المريض
+                        </span>
+
+                        <strong id="summaryPatient">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            التاريخ
+                        </span>
+
+                        <strong id="summaryDate">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            الوقت
+                        </span>
+
+                        <strong id="summaryTime">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            نوع الزيارة
+                        </span>
+
+                        <strong id="summaryVisit">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="confirm-btn"
+                        id="confirmBooking">
+
+                        <i class="ri-calendar-check-line"></i>
+
+                        تأكيد حجز الموعد
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 Cairo International Eye Hospital
+            </p>
+
+            <span>
+                CIEH Dashboard
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        
+
+        const params =
+            new URLSearchParams(window.location.search);
+
+        const doctor =
+            params.get("doctor");
+
+
+        const selectedDoctor =
+            document.getElementById("selectedDoctor");
+
+        const summaryDoctor =
+            document.getElementById("summaryDoctor");
+
+
+        if (doctor) {
+
+            selectedDoctor.textContent = doctor;
+
+            summaryDoctor.textContent = doctor;
+
+        }
+
+
+        
+
+        function goToDoctors() {
+
+            window.location.href = "doctors.html";
+
+        }
+
+
+        
+
+        const timeSlots =
+            document.querySelectorAll(".time-slot");
+
+        const summaryTime =
+            document.getElementById("summaryTime");
+
+
+        timeSlots.forEach(function(slot) {
+
+            slot.addEventListener("click", function() {
+
+                timeSlots.forEach(function(item) {
+
+                    item.classList.remove("selected");
+
+                });
+
+                slot.classList.add("selected");
+
+                summaryTime.textContent =
+                    slot.dataset.time;
+
+            });
+
+        });
+
+
+        
+
+        const patientName =
+            document.getElementById("patientName");
+
+        const summaryPatient =
+            document.getElementById("summaryPatient");
+
+
+        patientName.addEventListener("input", function() {
+
+            summaryPatient.textContent =
+                this.value || "—";
+
+        });
+
+
+        /* =========================
+           DATE
+        ========================= */
+
+        const appointmentDate =
+            document.getElementById("appointmentDate");
+
+        const summaryDate =
+            document.getElementById("summaryDate");
+
+
+        appointmentDate.addEventListener("change", function() {
+
+            if (this.value) {
+
+                const date =
+                    new Date(this.value);
+
+                summaryDate.textContent =
+                    date.toLocaleDateString("ar-EG");
+
+            } else {
+
+                summaryDate.textContent = "—";
+
+            }
+
+        });
+
+
+    
+
+        const visitType =
+            document.getElementById("visitType");
+
+        const summaryVisit =
+            document.getElementById("summaryVisit");
+
+
+        visitType.addEventListener("change", function() {
+
+            summaryVisit.textContent =
+                this.value || "—";
+
+        });
+
+
+        const confirmBooking =
+            document.getElementById("confirmBooking");
+
+        const bookingForm =
+            document.getElementById("bookingForm");
+
+        const successMessage =
+            document.getElementById("successMessage");
+
+
+        confirmBooking.addEventListener("click", function() {
+
+    if (!doctor) {
+        alert("من فضلك اختاري الطبيب أولًا.");
+        goToDoctors();
+        return;
+    }
+
+    if (!bookingForm.checkValidity()) {
+        bookingForm.reportValidity();
+        return;
+    }
+
+    const selectedTime =
+        document.querySelector(".time-slot.selected");
+
+    if (!selectedTime) {
+        alert("من فضلك اختاري وقت الموعد.");
+        return;
+    }
+
+    // بيانات الحجز
+    const appointment = {
+        id: Date.now(),
+        doctor: doctor,
+        patient: patientName.value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        date: appointmentDate.value,
+        time: selectedTime.dataset.time,
+        visitType: visitType.value,
+        reason: document.getElementById("reason").value
+    };
+
+    // جلب الحجوزات القديمة
+    let appointments =
+        JSON.parse(localStorage.getItem("ciehAppointments")) || [];
+
+    // إضافة الحجز الجديد
+    appointments.push(appointment);
+
+    // حفظ الحجوزات
+    localStorage.setItem(
+        "ciehAppointments",
+        JSON.stringify(appointments)
+    );
+
+    // إظهار رسالة النجاح
+    successMessage.style.display = "block";
+
+    confirmBooking.textContent =
+        "تم تأكيد الحجز ✓";
+
+    confirmBooking.disabled = true;
+
+});
+
+
+        /* =========================
+           MOBILE SIDEBAR
+        ========================= */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener("click", function() {
+
+                sidebar.classList.toggle("active");
+
+            });
+
+        }
+
+        /* =========================
+   DISPLAY SAVED APPOINTMENTS
+========================= */
+
+const appointmentsList =
+    document.getElementById("appointmentsList");
+
+function displayAppointments() {
+
+    const appointments =
+        JSON.parse(
+            localStorage.getItem("ciehAppointments")
+        ) || [];
+
+    if (appointments.length === 0) {
+
+        appointmentsList.innerHTML = `
+            <div style="
+                text-align:center;
+                padding:40px;
+                color:#8a9aa5;
+            ">
+                <i class="ri-calendar-line"
+                   style="font-size:40px;">
+                </i>
+
+                <p>
+                    لا توجد مواعيد محجوزة حتى الآن
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    appointmentsList.innerHTML =
+        appointments.map(function(appointment) {
+
+            return `
+                <div style="
+                    border:1px solid #e6edf1;
+                    border-radius:12px;
+                    padding:18px;
+                    margin-bottom:12px;
+                    background:#fff;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        gap:15px;
+                        margin-bottom:12px;
+                    ">
+
+                        <strong style="font-size:14px;">
+                            ${appointment.doctor}
+                        </strong>
+
+                        <span style="
+                            background:#e9f8f1;
+                            color:#20835f;
+                            padding:5px 10px;
+                            border-radius:20px;
+                            font-size:9px;
+                        ">
+                            مؤكد
+                        </span>
+
+                    </div>
+
+
+                    <div style="
+                        display:grid;
+                        grid-template-columns:
+                        repeat(2, 1fr);
+                        gap:10px;
+                        color:#607681;
+                        font-size:10px;
+                    ">
+
+                        <div>
+                            <i class="ri-user-line"></i>
+                            المريض:
+                            ${appointment.patient}
+                        </div>
+
+                        <div>
+                            <i class="ri-phone-line"></i>
+                            الهاتف:
+                            ${appointment.phone}
+                        </div>
+
+                        <div>
+                            <i class="ri-calendar-line"></i>
+                            التاريخ:
+                            ${appointment.date}
+                        </div>
+
+                        <div>
+                            <i class="ri-time-line"></i>
+                            الوقت:
+                            ${appointment.time}
+                        </div>
+
+                        <div>
+                            <i class="ri-stethoscope-line"></i>
+                            نوع الزيارة:
+                            ${appointment.visitType}
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+
+        }).join("");
+}
+
+
+
+
+displayAppointments();
+
+    </script>
+
+</body>
+
+</html>
