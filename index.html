@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Cairo International Eye Hospital">
+
+    <title data-i18n="hospitalName">
+        مستشفى القاهرة الدولي للعيون
+    </title>
+
+
+    <!-- ================================
+         GOOGLE FONTS
+    ================================= -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Roboto:wght@400;500;700;800&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="hosptial.css">
+
+</head>
+<body>
+
+<div class="language-overlay"
+     id="languageOverlay">
+
+    <div class="language-box">
+
+        <div class="language-icon">
+
+            <i class="ri-global-line"></i>
+
+        </div>
+
+
+        <h2 data-i18n="welcome">
+            مرحبًا
+        </h2>
+
+
+        <p data-i18n="chooseLanguage">
+            اختاري اللغة المفضلة لديك
+        </p>
+
+
+        <div class="language-buttons">
+
+
+            <!-- ARABIC -->
+
+            <button class="language-btn"
+                    onclick="changeLanguage('ar')">
+
+                🇪🇬
+
+                <span data-i18n="arabic">
+                    العربية
+                </span>
+
+            </button>
+
+
+            <!-- ENGLISH -->
+
+            <button class="language-btn"
+                    onclick="changeLanguage('en')">
+
+                🇬🇧
+
+                <span data-i18n="english">
+                    English
+                </span>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<header class="navbar">
+
+    <div class="container navbar-container">
+
+        <a href="index.html"
+           class="logo">
+
+            <div class="logo-icon">
+
+                <i class="ri-eye-line"></i>
+
+            </div>
+
+
+            <div class="logo-text">
+
+                <strong>
+                    CIEH
+                </strong>
+
+                <span data-i18n="hospitalShortName">
+                    Cairo International Eye Hospital
+                </span>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav-menu"
+             id="navMenu">
+
+
+            <a href="index.html"
+               class="active"
+               data-i18n="home">
+
+                الرئيسية
+
+            </a>
+
+
+            <a href="#doctors"
+               data-i18n="doctors">
+
+                الأطباء
+
+            </a>
+
+
+            <a href="#services"
+               data-i18n="services">
+
+                خدماتنا
+
+            </a>
+            <a href="dashboard/index.html"> Dashboard</a>
+
+            <a href="#about"
+               data-i18n="about">
+
+                عن المستشفى
+
+            </a>
+
+
+            <a href="#contact"
+               data-i18n="contact">
+
+                تواصل معنا
+
+            </a>
+
+
+        </nav>
+
+        <div class="nav-actions">
+
+      <div class="language-buttons">
+         <button
+        
+            type="button"
+            class="language-btn"
+              onclick="changeLanguage('en')">
+
+               🇬🇧
+
+               <span>
+                English
+               </span>
+
+            </button>
+            <button
+         type="button"
+        class="language-btn"
+        onclick="changeLanguage('ar')">
+
+         🇪🇬
+
+        <span>
+        العربية
+       </span>
+
+    </button>
+  </div> 
+
+
+            <!-- LOGIN -->
+
+            <a href="login.html"
+               class="login-link"
+               data-i18n="login">
+
+                تسجيل الدخول
+
+            </a>
+
+
+            <!-- BOOK -->
+
+            <a href="#doctors"
+               class="btn btn-primary"
+               data-i18n="bookAppointment">
+
+                احجزي موعد
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+    type="button"
+    class="menu-toggle"
+    id="menuToggle"
+    onclick="toggleMenu()">
+
+    <i class="ri-menu-line"></i>
+
+</button>
+
+
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="container hero-container">
+
+
+        <!-- HERO CONTENT -->
+
+        <div class="hero-content">
+            
+
+
+            <span class="hero-badge">
+
+                <i class="ri-shield-check-line"></i>
+
+                <span data-i18n="heroBadge">
+                    رعاية متخصصة لصحة عينيك
+                </span>
+
+            </span>
+
+
+
+            <h1>
+
+                <span data-i18n="heroTitle">
+                    عيونك تستحق
+                </span>
+
+
+                <span class="highlight"
+                      data-i18n="heroHighlight">
+
+                    أفضل رعاية
+
+                </span>
+
+            </h1>
+
+
+
+            <p data-i18n="heroDescription">
+
+                مستشفى القاهرة الدولي للعيون تقدم
+                رعاية متخصصة بأحدث التقنيات وعلى
+                يد نخبة من الأطباء المتخصصين.
+
+            </p>
+
+
+
+            <!-- HERO BUTTONS -->
+
+            <div class="hero-buttons">
+
+
+                <a href="#doctors"
+                   class="btn btn-primary">
+
+                    <span data-i18n="chooseDoctor">
+                        اختاري الدكتور
+                    </span>
+
+                    <i class="ri-arrow-left-line"></i>
+
+                </a>
+
+
+                <a href="#services"
+                   class="btn btn-outline"
+                   data-i18n="discoverServices">
+
+                    اكتشفي خدماتنا
+
+                </a>
+
+
+            </div>
+
+
+
+            <!-- HERO INFO -->
+
+            <div class="hero-info">
+
+
+                <div class="hero-info-item">
+
+                    <i class="ri-calendar-check-line"></i>
+
+                    <div>
+
+                      <a href="dashboard/appointments.html" class="online-booking">
+
+                         <strong data-i18n="onlineBooking"> 
+
+                           حجز أونلاين
+
+                         </strong>
+
+                        <span data-i18n="chooseAppointment">
+
+                          اختاري الموعد المناسب
+
+                        </span>
+
+                      </a>
+
+                   </div>
+
+                </div>
+
+
+
+                <div class="hero-info-item">
+
+                    <i class="ri-user-star-line"></i>
+
+                    <div>
+
+                        <strong data-i18n="specializedDoctors">
+                            أطباء متخصصون
+                        </strong>
+
+                        <span data-i18n="experiencedDoctors">
+                            خبرة ورعاية متخصصة
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+
+
+            <div class="hero-circle">
+
+                <i class="ri-eye-2-line"></i>
+
+            </div>
+
+
+
+            <div class="floating-card card-one">
+
+                <i class="ri-heart-pulse-line"></i>
+
+                <div>
+
+                    <strong data-i18n="integratedCare">
+                        رعاية متكاملة
+                    </strong>
+
+                    <span data-i18n="eyeHealth">
+                        لصحة عينيك
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="floating-card card-two">
+
+                <i class="ri-calendar-check-line"></i>
+
+                <div>
+
+                    <strong data-i18n="onlineBooking">
+                        حجز أونلاين
+                    </strong>
+
+                    <span data-i18n="anytime">
+                        بسهولة وفي أي وقت
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+<section class="quick-booking">
+
+    <div class="container">
+
+        <div class="booking-card">
+
+
+            <div class="booking-title">
+
+
+                <span class="section-label"
+                      data-i18n="onlineAppointment">
+
+                    ONLINE APPOINTMENT
+
+                </span>
+
+
+                <h2 data-i18n="easyBooking">
+
+                    احجزي موعدك بسهولة
+
+                </h2>
+
+
+                <p data-i18n="patientChoose">
+
+                    المريض هو الذي يختار الطبيب والموعد.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="booking-steps">
+
+
+                <!-- STEP 1 -->
+
+                <div class="booking-step">
+
+                    <span>
+                        01
+                    </span>
+
+                    <i class="ri-stethoscope-line"></i>
+
+                    <h3 data-i18n="chooseSpecialty">
+
+                        اختاري التخصص
+
+                    </h3>
+
+                </div>
+
+
+
+                <i class="ri-arrow-left-line step-arrow"></i>
+
+
+
+                <!-- STEP 2 -->
+
+                <div class="booking-step">
+
+                    <span>
+                        02
+                    </span>
+
+                    <i class="ri-user-search-line"></i>
+
+                    <h3 data-i18n="chooseDoctor">
+
+                        اختاري الدكتور
+
+                    </h3>
+
+                </div>
+
+
+
+                <i class="ri-arrow-left-line step-arrow"></i>
+
+
+
+                <!-- STEP 3 -->
+
+                <div class="booking-step">
+
+                    <span>
+                        03
+                    </span>
+
+                    <i class="ri-calendar-check-line"></i>
+
+                    <h3 data-i18n="chooseTime">
+
+                        اختاري الموعد
+
+                    </h3>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="center">
+
+                <a href="#doctors"
+                   class="btn btn-primary"
+                   data-i18n="startBooking">
+
+                    ابدئي الحجز الآن
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+    
+
+<section class="doctors section"
+         id="doctors">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+
+            <span class="section-label"
+                  data-i18n="ourDoctors">
+
+                OUR DOCTORS
+
+            </span>
+
+
+            <h2 data-i18n="chooseYourDoctor">
+
+                اختاري طبيبك
+
+            </h2>
+
+
+            <p data-i18n="doctorsDescription">
+
+                تعرفي على أطبائنا واختاري الطبيب المناسب لكِ.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div class="doctors-grid">
+
+
+        
+
+            <article class="doctor-card">
+
+
+                <div class="doctor-image">
+
+                    <img src="images/WhatsApp Image 2026-08-18 at 8.38.30 AM (1).jpeg"
+                         alt="Doctor"
+                         data-i18n-alt="doctor1Name">
+
+                </div>
+
+
+
+                <div class="doctor-info">
+
+
+                    <h3 data-i18n="doctor1Name">
+
+                    د. احمد ربيع بوالحسن
+
+                    </h3>
+
+
+                    <span class="doctor-specialty"
+                          data-i18n="doctor1Specialty">
+
+                       اخصائي طب وجراحه العيون
+
+                    </span>
+
+
+                    <p data-i18n="doctor1Description">
+
+                     اخصائي طب وجراحه العيون
+
+                    </p>
+
+
+                    <a href="doctor-details.html?doctor=1"
+                       class="doctor-btn">
+
+                        <span data-i18n="selectDoctor">
+
+                            اختيار الدكتور
+
+                        </span>
+
+                        <i class="ri-arrow-left-line"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </article>
+
+
+
+            <article class="doctor-card">
+
+
+                <div class="doctor-image">
+
+                    <img src="images/WhatsApp Image 2026-08-18 at 8.38.46 AM.jpeg"
+                         alt="Doctor"
+                         data-i18n-alt="doctor2Name">
+
+                </div>
+
+
+
+                <div class="doctor-info">
+
+
+                    <h3 data-i18n="doctor2Name">
+
+                    د. كريم ابو العز
+
+                    </h3>
+
+
+                    <span class="doctor-specialty"
+                          data-i18n="doctor2Specialty">
+
+                        استشاري طب وجراحه العيون
+                        استشاري جراحات الشبكيه والجسم الزجاجي والليز
+                    </span>
+
+
+                    <p data-i18n="doctor2Description">
+                              استشاري طب وجراحه العيون 
+                          استشاري جراحات الشبكيه والجسم الزجاجي والليزر
+                    </p>
+
+
+                    <a href="doctor-details.html?doctor=2"
+                       class="doctor-btn">
+
+                        <span data-i18n="selectDoctor">
+
+                            اختيار الدكتور
+
+                        </span>
+
+                        <i class="ri-arrow-left-line"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </article>
+
+
+
+
+
+            <article class="doctor-card">
+
+
+                <div class="doctor-image">
+
+                    <img src="images/WhatsApp Image 2026-08-18 at 8.39.04 AM.jpeg"
+                         alt="Doctor"
+                         data-i18n-alt="doctor3Name">
+
+                </div>
+
+
+
+                <div class="doctor-info">
+
+
+                    <h3 data-i18n="doctor3Name">
+
+                        ا.د عمرو الاسود
+
+                    </h3>
+
+
+                    <span class="doctor-specialty"
+                          data-i18n="doctor3Specialty">
+
+                   استشاري القرينه وجراحات المياه البيضاءوتصحيح الابصار
+                    </span>
+
+
+                    <p data-i18n="doctor3Description">
+
+                                 استشاري القرينه وجراحات المياه البيضاء وتصحيح الابصار
+
+                    </p>
+
+
+                    <a href="doctor-details.html?doctor=3"
+                       class="doctor-btn">
+
+                        <span data-i18n="selectDoctor">
+
+                            اختيار الدكتور
+
+                        </span>
+
+                        <i class="ri-arrow-left-line"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<section class="services section"
+         id="services">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+
+            <span class="section-label"
+                  data-i18n="ourServicesLabel">
+
+                OUR SERVICES
+
+            </span>
+
+
+            <h2 data-i18n="ourServices">
+
+                خدماتنا الطبية
+
+            </h2>
+
+
+            <p data-i18n="servicesDescription">
+
+                مجموعة متكاملة من خدمات طب وجراحة العيون.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div class="services-grid">
+
+
+            <!-- SERVICE 1 -->
+
+            <article class="service-card">
+
+                <div class="service-icon">
+
+                    <i class="ri-eye-2-line"></i>
+
+                </div>
+
+
+                <h3 data-i18n="eyeExam">
+
+                    فحص العيون
+
+                </h3>
+
+
+                <p data-i18n="eyeExamDescription">
+
+                    فحوصات شاملة للعين وتشخيص دقيق لمشكلات النظر.
+
+                </p>
+
+            </article>
+
+
+
+            <!-- SERVICE 2 -->
+
+            <article class="service-card">
+
+                <div class="service-icon">
+
+                    <i class="ri-surgical-mask-line"></i>
+
+                </div>
+
+
+                <h3 data-i18n="eyeSurgery">
+
+                    جراحات العيون
+
+                </h3>
+
+
+                <p data-i18n="eyeSurgeryDescription">
+
+                    خدمات جراحية متخصصة بأحدث التقنيات الطبية.
+
+                </p>
+
+            </article>
+
+
+
+            <!-- SERVICE 3 -->
+
+            <article class="service-card">
+
+                <div class="service-icon">
+
+                    <i class="ri-focus-3-line"></i>
+
+                </div>
+
+
+                <h3 data-i18n="visionCorrection">
+
+                    تصحيح الإبصار
+
+                </h3>
+
+
+                <p data-i18n="visionCorrectionDescription">
+
+                    خدمات متخصصة لتصحيح مشكلات الإبصار.
+
+                </p>
+
+            </article>
+
+
+
+            <!-- SERVICE 4 -->
+
+            <article class="service-card">
+
+                <div class="service-icon">
+
+                    <i class="ri-microscope-line"></i>
+
+                </div>
+
+
+                <h3 data-i18n="advancedDiagnosis">
+
+                    التشخيص المتقدم
+
+                </h3>
+
+
+                <p data-i18n="advancedDiagnosisDescription">
+
+                    تقنيات تشخيص متقدمة للحصول على نتائج دقيقة.
+
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="about section"
+         id="about">
+
+    <div class="container about-container">
+
+
+        <div class="about-visual">
+
+            <div class="about-box">
+
+                <i class="ri-eye-2-fill"></i>
+
+                <strong>
+                    CIEH
+                </strong>
+
+                <span data-i18n="eyeCareText">
+                    Eye Care
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="about-content">
+
+
+            <span class="section-label"
+                  data-i18n="aboutLabel">
+
+                ABOUT US
+
+            </span>
+
+
+            <h2 data-i18n="aboutTitle">
+
+                رعاية تضع المريض في المقام الأول
+
+            </h2>
+
+
+            <p data-i18n="aboutDescription">
+
+                مستشفى القاهرة الدولي للعيون تسعى لتقديم
+                تجربة طبية متكاملة تجمع بين الخبرة الطبية
+                والتكنولوجيا الحديثة والاهتمام بكل مريض.
+
+            </p>
+
+
+
+            <div class="about-list">
+
+
+                <div>
+
+                    <i class="ri-checkbox-circle-fill"></i>
+
+                    <span data-i18n="feature1">
+
+                        أطباء متخصصون
+
+                    </span>
+
+                </div>
+
+
+
+                <div>
+
+                    <i class="ri-checkbox-circle-fill"></i>
+
+                    <span data-i18n="feature2">
+
+                        حجز مواعيد أونلاين
+
+                    </span>
+
+                </div>
+
+
+
+                <div>
+
+                    <i class="ri-checkbox-circle-fill"></i>
+
+                    <span data-i18n="feature3">
+
+                        متابعة المريض إلكترونيًا
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="contact section"
+         id="contact">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+
+            <span class="section-label"
+                  data-i18n="contactLabel">
+
+                CONTACT US
+
+            </span>
+
+
+            <h2 data-i18n="contactTitle">
+
+                تواصلي معنا
+
+            </h2>
+
+
+        </div>
+
+
+
+        <div class="contact-grid">
+
+
+            <!-- PHONE -->
+
+            <div class="contact-card">
+
+
+                <i class="ri-phone-line"></i>
+
+
+                <div>
+
+                    <span data-i18n="phone">
+
+                        الهاتف
+
+                    </span>
+
+
+                    <a href="tel:01222208779">
+
+                        01222208779
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="contact-card">
+
+
+                <i class="ri-mail-line"></i>
+
+
+                <div>
+
+                    <span data-i18n="email">
+
+                        البريد الإلكتروني
+
+                    </span>
+
+
+                    <a href="mailto:ieh.cairo@gmail.com">
+
+                        ieh.cairo@gmail.com
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ADDRESS -->
+
+            <div class="contact-card">
+
+
+                <i class="ri-map-pin-line"></i>
+
+
+                <div>
+
+                    <span data-i18n="address">
+
+                        العنوان
+
+                    </span>
+
+
+                    <p data-i18n="addressText">
+
+                        140 شارع 26 يوليو، بجوار ساقية الصاوي
+                        ومسجد الرحمان، مقابل سنترال الزمالك
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<footer>
+
+    <div class="container footer-container">
+
+
+        <!-- FOOTER ABOUT -->
+
+        <div class="footer-about">
+
+
+            <a href="index.html"
+               class="logo footer-logo">
+
+
+                <div class="logo-icon">
+
+                    <i class="ri-eye-line"></i>
+
+                </div>
+
+
+                <div class="logo-text">
+
+                    <strong>
+                        CIEH
+                    </strong>
+
+
+                    <span data-i18n="hospitalShortName">
+
+                        Cairo International Eye Hospital
+
+                    </span>
+
+                </div>
+
+
+            </a>
+
+
+            <p data-i18n="footerDescription">
+
+                مستشفى القاهرة الدولي للعيون
+                — رعاية متخصصة لصحة عينيك.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- FOOTER LINKS -->
+
+        <div class="footer-links">
+
+
+            <h3 data-i18n="quickLinks">
+
+                روابط سريعة
+
+            </h3>
+
+
+            <a href="index.html"
+               data-i18n="home">
+
+                الرئيسية
+
+            </a>
+
+
+            <a href="#doctors"
+               data-i18n="doctors">
+
+                الأطباء
+
+            </a>
+
+
+            <a href="login.html"
+               data-i18n="login">
+
+                تسجيل الدخول
+
+            </a>
+
+
+            <a href="register.html"
+               data-i18n="register">
+
+                إنشاء حساب
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- FOOTER CONTACT -->
+
+        <div class="footer-contact">
+
+
+            <h3 data-i18n="contact">
+
+                تواصل معنا
+
+            </h3>
+
+
+            <p>
+
+                <i class="ri-phone-line"></i>
+
+                01222208779
+
+            </p>
+
+
+            <p>
+
+                <i class="ri-mail-line"></i>
+
+                cieh.cairo@gmail.com
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    
+
+    <div class="footer-bottom">
+
+        <p data-i18n="copyright">
+
+            © 1993 مستشفى القاهرة الدولي للعيون
+
+        </p>
+
+ 
+    <div class="social-link-list">
+                  <a href="https://facebook.com" class="social-link"><i class="ri-facebook-circle-line"></i></a>
+                  <a href="https://instagram.com" class="social-link"><i class="ri-instagram-line"></i></a>
+                  <a href="https://whatsapp.com" class="social-link"><i class="ri-whatsapp-line"></i></a>
+                  
+
+        </div>
+    </div>
+
+</footer>
+
+
+
+<script src="translation.js"></script>
+
+<script src="hosptial.js"></script>
+
+
+</body>
+
+</html>

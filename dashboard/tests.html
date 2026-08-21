@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>التحاليل والأشعة | CIEH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        .tests-layout {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 20px;
+        }
+
+        .tests-card,
+        .results-card {
+            background: #fff;
+            border: 1px solid #e6edf1;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .card-title {
+            margin-bottom: 20px;
+        }
+
+        .card-title h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .card-title p {
+            color: #8a9aa5;
+            font-size: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #183b4d;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #e6edf1;
+            border-radius: 10px;
+            padding: 10px 13px;
+            font-family: inherit;
+            font-size: 10px;
+            color: #183b4d;
+            outline: none;
+            background: #fff;
+        }
+
+        .form-group input,
+        .form-group select {
+            height: 44px;
+        }
+
+        .form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #176b87;
+        }
+
+        .test-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .test-type {
+            border: 1px solid #e2eaee;
+            background: #fff;
+            color: #607681;
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 9px;
+            cursor: pointer;
+        }
+
+        .test-type.active {
+            background: #176b87;
+            border-color: #176b87;
+            color: #fff;
+        }
+
+        .upload-box {
+            border: 1px dashed #b8cbd3;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            background: #f9fcfd;
+            cursor: pointer;
+        }
+
+        .upload-box i {
+            display: block;
+            font-size: 30px;
+            color: #176b87;
+            margin-bottom: 8px;
+        }
+
+        .upload-box strong {
+            display: block;
+            font-size: 11px;
+            color: #183b4d;
+            margin-bottom: 4px;
+        }
+
+        .upload-box span {
+            font-size: 8px;
+            color: #8a9aa5;
+        }
+
+        .upload-box input {
+            display: none;
+        }
+
+        .save-test {
+            width: 100%;
+            height: 47px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #176b87;
+            color: #fff;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .save-test:hover {
+            background: #10566d;
+        }
+
+        .result-item {
+            border: 1px solid #e6edf1;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fafcfd;
+        }
+
+        .result-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .result-top strong {
+            font-size: 11px;
+            color: #183b4d;
+        }
+
+        .status {
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 8px;
+            background: #fff4df;
+            color: #a76a00;
+        }
+
+        .result-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 9px;
+            color: #607681;
+        }
+
+        .empty-results {
+            text-align: center;
+            padding: 35px 10px;
+            color: #8a9aa5;
+            font-size: 10px;
+        }
+
+        .empty-results i {
+            display: block;
+            font-size: 38px;
+            margin-bottom: 10px;
+            color: #176b87;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #e9f8f1;
+            color: #20835f;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .tests-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+            <div class="logo-icon">
+                <i class="ri-eye-line"></i>
+            </div>
+
+            <div>
+                <strong>CIEH</strong>
+                <span>Eye Hospital</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item">
+                <i class="ri-dashboard-line"></i>
+                <span>لوحة التحكم</span>
+            </a>
+
+            <a href="patients.html" class="menu-item">
+                <i class="ri-user-heart-line"></i>
+                <span>المرضى</span>
+            </a>
+
+            <a href="doctors.html" class="menu-item">
+                <i class="ri-stethoscope-line"></i>
+                <span>الأطباء</span>
+            </a>
+
+            <a href="appointments.html" class="menu-item">
+                <i class="ri-calendar-check-line"></i>
+                <span>المواعيد</span>
+            </a>
+
+            <a href="medical-records.html" class="menu-item">
+                <i class="ri-file-medical-line"></i>
+                <span>السجلات الطبية</span>
+            </a>
+
+            <a href="diagnosis.html" class="menu-item">
+                <i class="ri-heart-pulse-line"></i>
+                <span>التشخيص</span>
+            </a>
+
+            <a href="prescriptions.html" class="menu-item">
+                <i class="ri-capsule-line"></i>
+                <span>الروشتات</span>
+            </a>
+
+            <a href="tests.html" class="menu-item active">
+                <i class="ri-microscope-line"></i>
+                <span>التحاليل والأشعة</span>
+            </a>
+
+            <a href="messages.html" class="menu-item">
+                <i class="ri-message-3-line"></i>
+                <span>الرسائل</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="menu-item">
+                <i class="ri-settings-3-line"></i>
+                <span>الإعدادات</span>
+            </a>
+
+            <a href="../index.html" class="menu-item logout">
+                <i class="ri-logout-box-r-line"></i>
+                <span>العودة للموقع</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="ri-menu-line"></i>
+            </button>
+
+            <div class="page-title">
+                <h1>التحاليل والأشعة</h1>
+                <p>طلب ومتابعة الفحوصات الطبية</p>
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+                    <div class="profile-avatar">
+                        <i class="ri-user-line"></i>
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>مدير النظام</strong>
+                        <span>Admin</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="dashboard-content">
+
+            <div class="tests-layout">
+
+
+                <!-- NEW TEST -->
+
+                <div class="tests-card">
+
+                    <div class="card-title">
+
+                        <h2>طلب تحليل أو أشعة</h2>
+
+                        <p>
+                            أدخل بيانات المريض والفحص المطلوب
+                        </p>
+
+                    </div>
+
+
+                    <form id="testForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>اسم المريض</label>
+
+                                <input
+                                    type="text"
+                                    id="patientName"
+                                    placeholder="اسم المريض"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>رقم الملف الطبي</label>
+
+                                <input
+                                    type="text"
+                                    id="fileNumber"
+                                    placeholder="مثال: CIEH-001"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>الطبيب</label>
+
+                                <select id="doctor" required>
+
+                                    <option value="">
+                                        اختر الطبيب
+                                    </option>
+
+                                    <option>
+                                        أ.د. عمرو الأسود
+                                    </option>
+
+                                    <option>
+                                        د. أحمد ربيع أبو الحسن
+                                    </option>
+
+                                    <option>
+                                        د. كريم أبو العز
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>نوع الفحص</label>
+
+                                <div class="test-types">
+
+                                    <button
+                                        type="button"
+                                        class="test-type">
+                                        تحليل
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="test-type">
+                                        أشعة
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="test-type">
+                                        فحص عيون
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>الفحص المطلوب</label>
+
+                                <select id="testName" required>
+
+                                    <option value="">
+                                        اختر الفحص
+                                    </option>
+
+                                    <option>
+                                        OCT للشبكية
+                                    </option>
+
+                                    <option>
+                                        أشعة مقطعية على العين
+                                    </option>
+
+                                    <option>
+                                        تصوير قاع العين
+                                    </option>
+
+                                    <option>
+                                        قياس مجال الرؤية
+                                    </option>
+
+                                    <option>
+                                        تحليل سكر الدم
+                                    </option>
+
+                                    <option>
+                                        تحليل صورة دم كاملة
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>ملاحظات الطبيب</label>
+
+                                <textarea
+                                    id="notes"
+                                    placeholder="اكتب أي ملاحظات أو تعليمات..."
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>إرفاق ملف</label>
+
+                                <label class="upload-box">
+
+                                    <i class="ri-upload-cloud-2-line"></i>
+
+                                    <strong>
+                                        اضغط لاختيار ملف
+                                    </strong>
+
+                                    <span>
+                                        PDF أو JPG أو PNG
+                                    </span>
+
+                                    <input
+                                        type="file"
+                                        id="testFile"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                    >
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="success-message"
+                            id="successMessage">
+
+                            تم حفظ طلب الفحص بنجاح ✓
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="save-test">
+
+                            <i class="ri-save-line"></i>
+                            حفظ طلب الفحص
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- RESULTS -->
+
+                <div class="results-card">
+
+                    <div class="card-title">
+
+                        <h2>الفحوصات الأخيرة</h2>
+
+                        <p>
+                            الطلبات المسجلة في النظام
+                        </p>
+
+                    </div>
+
+                    <div id="resultsList"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 Cairo International Eye Hospital
+            </p>
+
+            <span>
+                CIEH Dashboard
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        const testForm =
+            document.getElementById("testForm");
+
+        const testTypes =
+            document.querySelectorAll(".test-type");
+
+        const resultsList =
+            document.getElementById("resultsList");
+
+        const successMessage =
+            document.getElementById("successMessage");
+
+
+        let selectedType = "";
+
+
+        /* اختيار نوع الفحص */
+
+        testTypes.forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                testTypes.forEach(function (item) {
+
+                    item.classList.remove("active");
+
+                });
+
+                this.classList.add("active");
+
+                selectedType =
+                    this.textContent.trim();
+
+            });
+
+        });
+
+
+        /* حفظ الطلب */
+
+        testForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                if (!selectedType) {
+
+                    alert(
+                        "من فضلك اختاري نوع الفحص أولًا."
+                    );
+
+                    return;
+
+                }
+
+
+                const testData = {
+
+                    id: Date.now(),
+
+                    patient:
+                        document.getElementById(
+                            "patientName"
+                        ).value,
+
+                    fileNumber:
+                        document.getElementById(
+                            "fileNumber"
+                        ).value,
+
+                    doctor:
+                        document.getElementById(
+                            "doctor"
+                        ).value,
+
+                    type:
+                        selectedType,
+
+                    test:
+                        document.getElementById(
+                            "testName"
+                        ).value,
+
+                    notes:
+                        document.getElementById(
+                            "notes"
+                        ).value,
+
+                    date:
+                        new Date().toLocaleDateString(
+                            "ar-EG"
+                        ),
+
+                    status:
+                        "قيد المراجعة"
+
+                };
+
+
+                let tests =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "ciehTests"
+                        )
+                    ) || [];
+
+
+                tests.push(testData);
+
+
+                localStorage.setItem(
+                    "ciehTests",
+                    JSON.stringify(tests)
+                );
+
+
+                successMessage.style.display =
+                    "block";
+
+
+                testForm.reset();
+
+                selectedType = "";
+
+
+                testTypes.forEach(function (item) {
+
+                    item.classList.remove("active");
+
+                });
+
+
+                displayTests();
+
+            }
+        );
+
+
+        /* عرض الفحوصات */
+
+        function displayTests() {
+
+            const tests =
+                JSON.parse(
+                    localStorage.getItem(
+                        "ciehTests"
+                    )
+                ) || [];
+
+
+            if (tests.length === 0) {
+
+                resultsList.innerHTML = `
+                    <div class="empty-results">
+
+                        <i class="ri-microscope-line"></i>
+
+                        لا توجد فحوصات مسجلة حتى الآن
+
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            resultsList.innerHTML =
+                tests.slice().reverse().map(
+                    function (test) {
+
+                        return `
+                            <div class="result-item">
+
+                                <div class="result-top">
+
+                                    <strong>
+                                        ${test.test}
+                                    </strong>
+
+                                    <span class="status">
+                                        ${test.status}
+                                    </span>
+
+                                </div>
+
+                                <div class="result-info">
+
+                                    <div>
+                                        <i class="ri-user-line"></i>
+                                        ${test.patient}
+                                    </div>
+
+                                    <div>
+                                        <i class="ri-stethoscope-line"></i>
+                                        ${test.doctor}
+                                    </div>
+
+                                    <div>
+                                        <i class="ri-test-tube-line"></i>
+                                        ${test.type}
+                                    </div>
+
+                                    <div>
+                                        <i class="ri-calendar-line"></i>
+                                        ${test.date}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        `;
+
+                    }
+                ).join("");
+
+        }
+
+
+        displayTests();
+
+
+        /* القائمة الجانبية للموبايل */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener(
+                "click",
+                function () {
+
+                    sidebar.classList.toggle(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

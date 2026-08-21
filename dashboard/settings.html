@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الإعدادات | CIEH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .settings-card {
+            background: #fff;
+            border: 1px solid #e6edf1;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .settings-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 17px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid #eef2f4;
+        }
+
+        .card-title-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 11px;
+            background: #eef8fa;
+            color: #176b87;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-title h2 {
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .card-title p {
+            color: #8a9aa5;
+            font-size: 9px;
+        }
+
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .profile-large {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #176b87, #35b7a8);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+        }
+
+        .profile-box strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .profile-box span {
+            color: #8a9aa5;
+            font-size: 9px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #183b4d;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            height: 43px;
+            border: 1px solid #e6edf1;
+            border-radius: 10px;
+            padding: 0 12px;
+            font-family: inherit;
+            font-size: 10px;
+            outline: none;
+            color: #183b4d;
+            background: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #176b87;
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid #eef2f4;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info strong {
+            display: block;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .setting-info span {
+            color: #8a9aa5;
+            font-size: 8px;
+        }
+
+        .switch {
+            position: relative;
+            width: 45px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            background: #d9e2e6;
+            border-radius: 30px;
+            transition: .25s;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 3px;
+            top: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: .25s;
+        }
+
+        .switch input:checked + .slider {
+            background: #176b87;
+        }
+
+        .switch input:checked + .slider::before {
+            transform: translateX(21px);
+        }
+
+        .language-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .language-btn {
+            flex: 1;
+            height: 45px;
+            border: 1px solid #e0e9ed;
+            border-radius: 10px;
+            background: #fff;
+            color: #607681;
+            font-family: inherit;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .language-btn.active {
+            background: #176b87;
+            color: #fff;
+            border-color: #176b87;
+        }
+
+        .password-input {
+            position: relative;
+        }
+
+        .password-input input {
+            padding-left: 42px;
+        }
+
+        .show-password {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: #8a9aa5;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .save-settings {
+            width: 100%;
+            height: 46px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 10px;
+            background: #176b87;
+            color: #fff;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .save-settings:hover {
+            background: #10566d;
+        }
+
+        .danger-button {
+            width: 100%;
+            height: 43px;
+            margin-top: 12px;
+            border: 1px solid #f0caca;
+            border-radius: 10px;
+            background: #fff6f6;
+            color: #c74c4c;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 12px;
+            padding: 11px;
+            border-radius: 10px;
+            background: #e9f8f1;
+            color: #20835f;
+            font-size: 9px;
+            text-align: center;
+        }
+
+        @media (max-width: 800px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-card.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                <i class="ri-eye-line"></i>
+            </div>
+
+            <div>
+                <strong>CIEH</strong>
+                <span>Eye Hospital</span>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item">
+                <i class="ri-dashboard-line"></i>
+                <span>لوحة التحكم</span>
+            </a>
+
+            <a href="patients.html" class="menu-item">
+                <i class="ri-user-heart-line"></i>
+                <span>المرضى</span>
+            </a>
+
+            <a href="doctors.html" class="menu-item">
+                <i class="ri-stethoscope-line"></i>
+                <span>الأطباء</span>
+            </a>
+
+            <a href="appointments.html" class="menu-item">
+                <i class="ri-calendar-check-line"></i>
+                <span>المواعيد</span>
+            </a>
+
+            <a href="medical-records.html" class="menu-item">
+                <i class="ri-file-medical-line"></i>
+                <span>السجلات الطبية</span>
+            </a>
+
+            <a href="diagnosis.html" class="menu-item">
+                <i class="ri-heart-pulse-line"></i>
+                <span>التشخيص</span>
+            </a>
+
+            <a href="prescriptions.html" class="menu-item">
+                <i class="ri-capsule-line"></i>
+                <span>الروشتات</span>
+            </a>
+
+            <a href="tests.html" class="menu-item">
+                <i class="ri-microscope-line"></i>
+                <span>التحاليل والأشعة</span>
+            </a>
+
+            <a href="messages.html" class="menu-item">
+                <i class="ri-message-3-line"></i>
+                <span>الرسائل</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="menu-item active">
+                <i class="ri-settings-3-line"></i>
+                <span>الإعدادات</span>
+            </a>
+
+            <a href="../index.html" class="menu-item logout">
+                <i class="ri-logout-box-r-line"></i>
+                <span>العودة للموقع</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="ri-menu-line"></i>
+            </button>
+
+            <div class="page-title">
+
+                <h1>الإعدادات</h1>
+
+                <p>
+                    إدارة إعدادات لوحة التحكم والحساب
+                </p>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        <i class="ri-user-line"></i>
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>مدير النظام</strong>
+                        <span>Admin</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="dashboard-content">
+
+            <div class="settings-grid">
+
+
+                <!-- ACCOUNT -->
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div class="card-title-icon">
+                            <i class="ri-user-settings-line"></i>
+                        </div>
+
+                        <div>
+                            <h2>بيانات الحساب</h2>
+                            <p>بيانات المستخدم المسؤول عن النظام</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-box">
+
+                        <div class="profile-large">
+                            <i class="ri-user-line"></i>
+                        </div>
+
+                        <div>
+                            <strong>مدير النظام</strong>
+                            <span>Administrator</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>الاسم</label>
+
+                        <input
+                            type="text"
+                            id="adminName"
+                            value="مدير النظام"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>البريد الإلكتروني</label>
+
+                        <input
+                            type="email"
+                            id="adminEmail"
+                            value="admin@cieh.com"
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="save-settings"
+                        id="saveAccount">
+
+                        <i class="ri-save-line"></i>
+                        حفظ بيانات الحساب
+
+                    </button>
+
+                </div>
+
+
+                <!-- LANGUAGE -->
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div class="card-title-icon">
+                            <i class="ri-global-line"></i>
+                        </div>
+
+                        <div>
+                            <h2>اللغة</h2>
+                            <p>اختاري لغة لوحة التحكم</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="language-options">
+
+                        <button
+                            class="language-btn active"
+                            data-lang="ar">
+
+                            العربية
+
+                        </button>
+
+                        <button
+                            class="language-btn"
+                            data-lang="en">
+
+                            English
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                اتجاه الصفحة
+                            </strong>
+
+                            <span>
+                                يتغير تلقائيًا حسب اللغة
+                            </span>
+
+                        </div>
+
+                        <strong id="directionText">
+                            RTL
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div class="card-title-icon">
+                            <i class="ri-notification-3-line"></i>
+                        </div>
+
+                        <div>
+                            <h2>الإشعارات</h2>
+                            <p>التحكم في إشعارات النظام</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                إشعارات المواعيد
+                            </strong>
+
+                            <span>
+                                تنبيه عند وجود موعد جديد
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="appointmentNotifications"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                رسائل الأطباء
+                            </strong>
+
+                            <span>
+                                تنبيه عند وصول رسالة جديدة
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="messageNotifications"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                نتائج التحاليل
+                            </strong>
+
+                            <span>
+                                تنبيه عند ظهور نتيجة جديدة
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="testNotifications"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div class="card-title-icon">
+                            <i class="ri-lock-password-line"></i>
+                        </div>
+
+                        <div>
+                            <h2>الأمان</h2>
+                            <p>تغيير كلمة مرور الحساب</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            كلمة المرور الحالية
+                        </label>
+
+                        <div class="password-input">
+
+                            <input
+                                type="password"
+                                id="currentPassword"
+                                placeholder="كلمة المرور الحالية"
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                data-target="currentPassword">
+
+                                <i class="ri-eye-line"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            كلمة المرور الجديدة
+                        </label>
+
+                        <div class="password-input">
+
+                            <input
+                                type="password"
+                                id="newPassword"
+                                placeholder="كلمة المرور الجديدة"
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                data-target="newPassword">
+
+                                <i class="ri-eye-line"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            تأكيد كلمة المرور
+                        </label>
+
+                        <div class="password-input">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="تأكيد كلمة المرور"
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                data-target="confirmPassword">
+
+                                <i class="ri-eye-line"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="save-settings"
+                        id="changePassword">
+
+                        <i class="ri-lock-password-line"></i>
+                        تغيير كلمة المرور
+
+                    </button>
+
+                </div>
+
+
+                <!-- SYSTEM -->
+
+                <div class="settings-card full">
+
+                    <div class="card-title">
+
+                        <div class="card-title-icon">
+                            <i class="ri-settings-4-line"></i>
+                        </div>
+
+                        <div>
+                            <h2>إعدادات النظام</h2>
+                            <p>خيارات عامة للوحة التحكم</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                الوضع الليلي
+                            </strong>
+
+                            <span>
+                                تفعيل المظهر الداكن للوحة التحكم
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="darkMode"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                حفظ الإعدادات تلقائيًا
+                            </strong>
+
+                            <span>
+                                الاحتفاظ بتفضيلاتك في المتصفح
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="autoSave"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <button
+                        class="danger-button"
+                        id="logoutButton">
+
+                        <i class="ri-logout-box-r-line"></i>
+                        تسجيل الخروج
+
+                    </button>
+
+
+                    <div
+                        class="success-message"
+                        id="successMessage">
+
+                        تم حفظ الإعدادات بنجاح ✓
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 Cairo International Eye Hospital
+            </p>
+
+            <span>
+                CIEH Dashboard
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        /* =========================
+           LANGUAGE
+        ========================= */
+
+        const languageButtons =
+            document.querySelectorAll(".language-btn");
+
+        const directionText =
+            document.getElementById("directionText");
+
+
+        languageButtons.forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    languageButtons.forEach(
+                        function (item) {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    this.classList.add("active");
+
+
+                    const language =
+                        this.dataset.lang;
+
+
+                    localStorage.setItem(
+                        "ciehLanguage",
+                        language
+                    );
+
+
+                    if (language === "en") {
+
+                        directionText.textContent =
+                            "LTR";
+
+                    } else {
+
+                        directionText.textContent =
+                            "RTL";
+
+                    }
+
+                }
+            );
+
+        });
+
+
+        /* =========================
+           ACCOUNT
+        ========================= */
+
+        document
+            .getElementById("saveAccount")
+            .addEventListener(
+                "click",
+                function () {
+
+                    const account = {
+
+                        name:
+                            document.getElementById(
+                                "adminName"
+                            ).value,
+
+                        email:
+                            document.getElementById(
+                                "adminEmail"
+                            ).value
+
+                    };
+
+
+                    localStorage.setItem(
+                        "ciehAdmin",
+                        JSON.stringify(account)
+                    );
+
+
+                    showSuccess();
+
+                }
+            );
+
+
+        /* =========================
+           NOTIFICATIONS
+        ========================= */
+
+        const notificationIds = [
+
+            "appointmentNotifications",
+            "messageNotifications",
+            "testNotifications"
+
+        ];
+
+
+        notificationIds.forEach(function (id) {
+
+            const element =
+                document.getElementById(id);
+
+
+            element.addEventListener(
+                "change",
+                saveSettings
+            );
+
+        });
+
+
+        /* =========================
+           SYSTEM SETTINGS
+        ========================= */
+
+        document
+            .getElementById("autoSave")
+            .addEventListener(
+                "change",
+                saveSettings
+            );
+
+
+        document
+            .getElementById("darkMode")
+            .addEventListener(
+                "change",
+                function () {
+
+                    if (this.checked) {
+
+                        document.body.classList.add(
+                            "dark-mode"
+                        );
+
+                    } else {
+
+                        document.body.classList.remove(
+                            "dark-mode"
+                        );
+
+                    }
+
+
+                    saveSettings();
+
+                }
+            );
+
+
+        function saveSettings() {
+
+            const settings = {
+
+                appointmentNotifications:
+                    document.getElementById(
+                        "appointmentNotifications"
+                    ).checked,
+
+                messageNotifications:
+                    document.getElementById(
+                        "messageNotifications"
+                    ).checked,
+
+                testNotifications:
+                    document.getElementById(
+                        "testNotifications"
+                    ).checked,
+
+                autoSave:
+                    document.getElementById(
+                        "autoSave"
+                    ).checked,
+
+                darkMode:
+                    document.getElementById(
+                        "darkMode"
+                    ).checked
+
+            };
+
+
+            localStorage.setItem(
+                "ciehSettings",
+                JSON.stringify(settings)
+            );
+
+        }
+
+
+        /* =========================
+           PASSWORD
+        ========================= */
+
+        document
+            .querySelectorAll(".show-password")
+            .forEach(function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const target =
+                            document.getElementById(
+                                this.dataset.target
+                            );
+
+
+                        if (
+                            target.type ===
+                            "password"
+                        ) {
+
+                            target.type =
+                                "text";
+
+                            this.innerHTML =
+                                '<i class="ri-eye-off-line"></i>';
+
+                        } else {
+
+                            target.type =
+                                "password";
+
+                            this.innerHTML =
+                                '<i class="ri-eye-line"></i>';
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+        document
+            .getElementById("changePassword")
+            .addEventListener(
+                "click",
+                function () {
+
+                    const current =
+                        document.getElementById(
+                            "currentPassword"
+                        ).value;
+
+                    const newPassword =
+                        document.getElementById(
+                            "newPassword"
+                        ).value;
+
+                    const confirm =
+                        document.getElementById(
+                            "confirmPassword"
+                        ).value;
+
+
+                    if (
+                        !current ||
+                        !newPassword ||
+                        !confirm
+                    ) {
+
+                        alert(
+                            "من فضلك املئي جميع خانات كلمة المرور."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (newPassword !== confirm) {
+
+                        alert(
+                            "كلمة المرور الجديدة غير متطابقة."
+                        );
+
+                        return;
+
+                    }
+
+
+                    localStorage.setItem(
+                        "ciehPassword",
+                        newPassword
+                    );
+
+
+                    document.getElementById(
+                        "currentPassword"
+                    ).value = "";
+
+                    document.getElementById(
+                        "newPassword"
+                    ).value = "";
+
+                    document.getElementById(
+                        "confirmPassword"
+                    ).value = "";
+
+
+                    showSuccess();
+
+                }
+            );
+
+
+        /* =========================
+           LOAD SETTINGS
+        ========================= */
+
+        function loadSettings() {
+            /* =========================
+   FULL LANGUAGE TRANSLATION
+========================= */
+
+const translations = {
+
+    ar: {
+        title: "الإعدادات",
+        subtitle: "إدارة إعدادات لوحة التحكم والحساب",
+
+        dashboard: "لوحة التحكم",
+        patients: "المرضى",
+        doctors: "الأطباء",
+        appointments: "المواعيد",
+        records: "السجلات الطبية",
+        diagnosis: "التشخيص",
+        prescriptions: "الروشتات",
+        tests: "التحاليل والأشعة",
+        messages: "الرسائل",
+        settings: "الإعدادات",
+        backWebsite: "العودة للموقع",
+
+        account: "بيانات الحساب",
+        accountDesc: "بيانات المستخدم المسؤول عن النظام",
+        admin: "مدير النظام",
+        name: "الاسم",
+        email: "البريد الإلكتروني",
+        saveAccount: "حفظ بيانات الحساب",
+
+        language: "اللغة",
+        languageDesc: "اختاري لغة لوحة التحكم",
+        direction: "اتجاه الصفحة",
+        directionDesc: "يتغير تلقائيًا حسب اللغة",
+
+        notifications: "الإشعارات",
+        notificationsDesc: "التحكم في إشعارات النظام",
+        appointmentNotifications: "إشعارات المواعيد",
+        appointmentDesc: "تنبيه عند وجود موعد جديد",
+        doctorMessages: "رسائل الأطباء",
+        doctorMessagesDesc: "تنبيه عند وصول رسالة جديدة",
+        testResults: "نتائج التحاليل",
+        testResultsDesc: "تنبيه عند ظهور نتيجة جديدة",
+
+        security: "الأمان",
+        securityDesc: "تغيير كلمة مرور الحساب",
+        currentPassword: "كلمة المرور الحالية",
+        newPassword: "كلمة المرور الجديدة",
+        confirmPassword: "تأكيد كلمة المرور",
+        changePassword: "تغيير كلمة المرور",
+
+        system: "إعدادات النظام",
+        systemDesc: "خيارات عامة للوحة التحكم",
+        darkMode: "الوضع الليلي",
+        darkModeDesc: "تفعيل المظهر الداكن للوحة التحكم",
+        autoSave: "حفظ الإعدادات تلقائيًا",
+        autoSaveDesc: "الاحتفاظ بتفضيلاتك في المتصفح",
+        logout: "تسجيل الخروج",
+
+        saved: "تم حفظ الإعدادات بنجاح ✓",
+        logoutConfirm: "هل أنت متأكد من تسجيل الخروج؟",
+        passwordEmpty: "من فضلك املئي جميع خانات كلمة المرور.",
+        passwordMismatch: "كلمة المرور الجديدة غير متطابقة."
+    },
+
+    en: {
+        title: "Settings",
+        subtitle: "Manage dashboard and account settings",
+
+        dashboard: "Dashboard",
+        patients: "Patients",
+        doctors: "Doctors",
+        appointments: "Appointments",
+        records: "Medical Records",
+        diagnosis: "Diagnosis",
+        prescriptions: "Prescriptions",
+        tests: "Lab & Radiology",
+        messages: "Messages",
+        settings: "Settings",
+        backWebsite: "Back to Website",
+
+        account: "Account Information",
+        accountDesc: "Information about the system administrator",
+        admin: "System Administrator",
+        name: "Name",
+        email: "Email Address",
+        saveAccount: "Save Account Information",
+
+        language: "Language",
+        languageDesc: "Choose dashboard language",
+        direction: "Page Direction",
+        directionDesc: "Changes automatically according to language",
+
+        notifications: "Notifications",
+        notificationsDesc: "Manage system notifications",
+        appointmentNotifications: "Appointment Notifications",
+        appointmentDesc: "Get notified about new appointments",
+        doctorMessages: "Doctor Messages",
+        doctorMessagesDesc: "Get notified when a new message arrives",
+        testResults: "Test Results",
+        testResultsDesc: "Get notified when a new result is available",
+
+        security: "Security",
+        securityDesc: "Change your account password",
+        currentPassword: "Current Password",
+        newPassword: "New Password",
+        confirmPassword: "Confirm Password",
+        changePassword: "Change Password",
+
+        system: "System Settings",
+        systemDesc: "General dashboard options",
+        darkMode: "Dark Mode",
+        darkModeDesc: "Enable dark appearance for the dashboard",
+        autoSave: "Auto Save Settings",
+        autoSaveDesc: "Keep your preferences saved in the browser",
+        logout: "Log Out",
+
+        saved: "Settings saved successfully ✓",
+        logoutConfirm: "Are you sure you want to log out?",
+        passwordEmpty: "Please fill in all password fields.",
+        passwordMismatch: "The new passwords do not match."
+    }
+
+};
+
+
+function applyLanguage(lang) {
+
+    const t = translations[lang];
+
+    if (!t) return;
+
+
+    /* Page */
+
+    document.documentElement.lang = lang;
+
+    document.documentElement.dir =
+        lang === "en" ? "ltr" : "rtl";
+
+
+    directionText.textContent =
+        lang === "en" ? "LTR" : "RTL";
+
+
+    /* Sidebar */
+
+    const menuItems =
+        document.querySelectorAll(".sidebar-menu .menu-item span");
+
+    if (menuItems.length >= 9) {
+
+        menuItems[0].textContent = t.dashboard;
+        menuItems[1].textContent = t.patients;
+        menuItems[2].textContent = t.doctors;
+        menuItems[3].textContent = t.appointments;
+        menuItems[4].textContent = t.records;
+        menuItems[5].textContent = t.diagnosis;
+        menuItems[6].textContent = t.prescriptions;
+        menuItems[7].textContent = t.tests;
+        menuItems[8].textContent = t.messages;
+
+    }
+
+
+    document.querySelector(
+        ".sidebar-bottom .menu-item.active span"
+    ).textContent = t.settings;
+
+
+    document.querySelector(
+        ".sidebar-bottom .logout span"
+    ).textContent = t.backWebsite;
+
+
+    /* Header */
+
+    document.querySelector(
+        ".page-title h1"
+    ).textContent = t.title;
+
+
+    document.querySelector(
+        ".page-title p"
+    ).textContent = t.subtitle;
+
+
+    /* Account */
+
+    const cards =
+        document.querySelectorAll(".settings-card");
+
+
+    cards[0].querySelector("h2").textContent =
+        t.account;
+
+    cards[0].querySelector("p").textContent =
+        t.accountDesc;
+
+    cards[0].querySelector(".profile-box strong").textContent =
+        t.admin;
+
+    cards[0].querySelectorAll("label")[0].textContent =
+        t.name;
+
+    cards[0].querySelectorAll("label")[1].textContent =
+        t.email;
+
+    document.getElementById(
+        "saveAccount"
+    ).innerHTML =
+        '<i class="ri-save-line"></i> ' +
+        t.saveAccount;
+
+
+    /* Language */
+
+    cards[1].querySelector("h2").textContent =
+        t.language;
+
+    cards[1].querySelector("p").textContent =
+        t.languageDesc;
+
+    cards[1].querySelector(".setting-info strong").textContent =
+        t.direction;
+
+    cards[1].querySelector(".setting-info span").textContent =
+        t.directionDesc;
+
+
+    /* Notifications */
+
+    cards[2].querySelector("h2").textContent =
+        t.notifications;
+
+    cards[2].querySelector("p").textContent =
+        t.notificationsDesc;
+
+
+    const notificationRows =
+        cards[2].querySelectorAll(".setting-row");
+
+
+    notificationRows[0]
+        .querySelector("strong")
+        .textContent =
+        t.appointmentNotifications;
+
+    notificationRows[0]
+        .querySelector("span")
+        .textContent =
+        t.appointmentDesc;
+
+
+    notificationRows[1]
+        .querySelector("strong")
+        .textContent =
+        t.doctorMessages;
+
+    notificationRows[1]
+        .querySelector("span")
+        .textContent =
+        t.doctorMessagesDesc;
+
+
+    notificationRows[2]
+        .querySelector("strong")
+        .textContent =
+        t.testResults;
+
+    notificationRows[2]
+        .querySelector("span")
+        .textContent =
+        t.testResultsDesc;
+
+
+    /* Security */
+
+    cards[3].querySelector("h2").textContent =
+        t.security;
+
+    cards[3].querySelector("p").textContent =
+        t.securityDesc;
+
+
+    const passwordLabels =
+        cards[3].querySelectorAll("label");
+
+
+    passwordLabels[0].textContent =
+        t.currentPassword;
+
+    passwordLabels[1].textContent =
+        t.newPassword;
+
+    passwordLabels[2].textContent =
+        t.confirmPassword;
+
+
+    document.getElementById(
+        "currentPassword"
+    ).placeholder =
+        t.currentPassword;
+
+    document.getElementById(
+        "newPassword"
+    ).placeholder =
+        t.newPassword;
+
+    document.getElementById(
+        "confirmPassword"
+    ).placeholder =
+        t.confirmPassword;
+
+
+    document.getElementById(
+        "changePassword"
+    ).innerHTML =
+        '<i class="ri-lock-password-line"></i> ' +
+        t.changePassword;
+
+
+    /* System */
+
+    cards[4].querySelector("h2").textContent =
+        t.system;
+
+    cards[4].querySelector("p").textContent =
+        t.systemDesc;
+
+
+    const systemRows =
+        cards[4].querySelectorAll(".setting-row");
+
+
+    systemRows[0]
+        .querySelector("strong")
+        .textContent =
+        t.darkMode;
+
+    systemRows[0]
+        .querySelector("span")
+        .textContent =
+        t.darkModeDesc;
+
+
+    systemRows[1]
+        .querySelector("strong")
+        .textContent =
+        t.autoSave;
+
+    systemRows[1]
+        .querySelector("span")
+        .textContent =
+        t.autoSaveDesc;
+
+
+    document.getElementById(
+        "logoutButton"
+    ).innerHTML =
+        '<i class="ri-logout-box-r-line"></i> ' +
+        t.logout;
+
+
+    document.getElementById(
+        "successMessage"
+    ).textContent =
+        t.saved;
+
+}
+
+
+/* Language buttons */
+
+languageButtons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        const lang =
+            this.dataset.lang;
+
+        localStorage.setItem(
+            "ciehLanguage",
+            lang
+        );
+
+        languageButtons.forEach(function(btn) {
+
+            btn.classList.toggle(
+                "active",
+                btn.dataset.lang === lang
+            );
+
+        });
+
+        applyLanguage(lang);
+
+    });
+
+});
+
+
+/* Load saved language */
+
+const savedLanguage =
+    localStorage.getItem("ciehLanguage") || "ar";
+
+applyLanguage(savedLanguage);
+
+            const account =
+                JSON.parse(
+                    localStorage.getItem(
+                        "ciehAdmin"
+                    )
+                );
+
+
+            if (account) {
+
+                document.getElementById(
+                    "adminName"
+                ).value = account.name || "";
+
+                document.getElementById(
+                    "adminEmail"
+                ).value = account.email || "";
+
+            }
+
+
+            const settings =
+                JSON.parse(
+                    localStorage.getItem(
+                        "ciehSettings"
+                    )
+                );
+
+
+            if (settings) {
+
+                document.getElementById(
+                    "appointmentNotifications"
+                ).checked =
+                    settings.appointmentNotifications;
+
+                document.getElementById(
+                    "messageNotifications"
+                ).checked =
+                    settings.messageNotifications;
+
+                document.getElementById(
+                    "testNotifications"
+                ).checked =
+                    settings.testNotifications;
+
+                document.getElementById(
+                    "autoSave"
+                ).checked =
+                    settings.autoSave;
+
+                document.getElementById(
+                    "darkMode"
+                ).checked =
+                    settings.darkMode;
+
+
+                if (settings.darkMode) {
+
+                    document.body.classList.add(
+                        "dark-mode"
+                    );
+
+                }
+
+            }
+
+
+            const language =
+                localStorage.getItem(
+                    "ciehLanguage"
+                );
+
+
+            if (language === "en") {
+
+                languageButtons.forEach(
+                    function (button) {
+
+                        button.classList.toggle(
+                            "active",
+                            button.dataset.lang === "en"
+                        );
+
+                    }
+                );
+
+                directionText.textContent =
+                    "LTR";
+
+            }
+
+        }
+
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        function showSuccess() {
+
+            const message =
+                document.getElementById(
+                    "successMessage"
+                );
+
+
+            message.style.display =
+                "block";
+
+
+            setTimeout(function () {
+
+                message.style.display =
+                    "none";
+
+            }, 2500);
+
+        }
+
+
+        /* =========================
+           LOGOUT
+        ========================= */
+
+        document
+            .getElementById("logoutButton")
+            .addEventListener(
+                "click",
+                function () {
+
+                    const confirmLogout =
+                        confirm(
+                            "هل أنت متأكد من تسجيل الخروج؟"
+                        );
+
+
+                    if (confirmLogout) {
+
+                        window.location.href =
+                            "../index.html";
+
+                    }
+
+                }
+            );
+
+
+        /* =========================
+           MOBILE SIDEBAR
+        ========================= */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener(
+                "click",
+                function () {
+
+                    sidebar.classList.toggle(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+
+        loadSettings();
+
+    </script>
+
+</body>
+
+</html>

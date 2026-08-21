@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الرسائل | CIEH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        .messages-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 18px;
+            height: calc(100vh - 170px);
+            min-height: 520px;
+        }
+
+        .conversations,
+        .chat {
+            background: #fff;
+            border: 1px solid #e6edf1;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .messages-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e6edf1;
+        }
+
+        .messages-header h2 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .messages-header p {
+            font-size: 9px;
+            color: #8a9aa5;
+        }
+
+        .search-box {
+            padding: 12px;
+            border-bottom: 1px solid #e6edf1;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 38px;
+            border: 1px solid #e6edf1;
+            border-radius: 9px;
+            padding: 0 12px;
+            font-family: inherit;
+            font-size: 9px;
+            outline: none;
+        }
+
+        .conversation-list {
+            overflow-y: auto;
+            height: calc(100% - 120px);
+        }
+
+        .conversation {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f4f6;
+        }
+
+        .conversation:hover,
+        .conversation.active {
+            background: #eef8fa;
+        }
+
+        .conversation-avatar {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 50%;
+            background: #dceff3;
+            color: #176b87;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .conversation-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .conversation-info strong {
+            display: block;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .conversation-info span {
+            display: block;
+            color: #8a9aa5;
+            font-size: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .conversation-time {
+            align-self: flex-start;
+            color: #9aa9b1;
+            font-size: 7px;
+        }
+
+        .chat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 17px 20px;
+            border-bottom: 1px solid #e6edf1;
+        }
+
+        .chat-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #176b87;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .chat-user strong {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .chat-user span {
+            color: #35a982;
+            font-size: 8px;
+        }
+
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 22px;
+            background: #f8fbfc;
+        }
+
+        .date-divider {
+            text-align: center;
+            margin: 5px 0 18px;
+        }
+
+        .date-divider span {
+            background: #e8f0f3;
+            color: #81929b;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 7px;
+        }
+
+        .message {
+            max-width: 68%;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message.received {
+            align-items: flex-start;
+        }
+
+        .message.sent {
+            align-items: flex-end;
+            margin-right: auto;
+        }
+
+        .message-bubble {
+            padding: 11px 14px;
+            border-radius: 13px;
+            font-size: 9px;
+            line-height: 1.8;
+        }
+
+        .received .message-bubble {
+            background: #fff;
+            border: 1px solid #e6edf1;
+            border-top-right-radius: 4px;
+        }
+
+        .sent .message-bubble {
+            background: #176b87;
+            color: #fff;
+            border-top-left-radius: 4px;
+        }
+
+        .message-time {
+            margin-top: 4px;
+            font-size: 7px;
+            color: #9aa9b1;
+        }
+
+        .chat-input {
+            padding: 13px;
+            border-top: 1px solid #e6edf1;
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            height: 42px;
+            border: 1px solid #e1eaee;
+            border-radius: 10px;
+            padding: 0 13px;
+            font-family: inherit;
+            font-size: 9px;
+            outline: none;
+        }
+
+        .chat-input input:focus {
+            border-color: #176b87;
+        }
+
+        .attach-btn,
+        .send-btn {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .attach-btn {
+            background: #eef4f6;
+            color: #176b87;
+        }
+
+        .send-btn {
+            background: #176b87;
+            color: #fff;
+        }
+
+        .send-btn:hover {
+            background: #10566d;
+        }
+
+        .empty-chat {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #8a9aa5;
+            font-size: 10px;
+        }
+
+        .empty-chat i {
+            font-size: 45px;
+            color: #176b87;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 850px) {
+            .messages-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .conversations {
+                min-height: 300px;
+            }
+
+            .chat {
+                min-height: 500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                <i class="ri-eye-line"></i>
+            </div>
+
+            <div>
+                <strong>CIEH</strong>
+                <span>Eye Hospital</span>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item">
+                <i class="ri-dashboard-line"></i>
+                <span>لوحة التحكم</span>
+            </a>
+
+            <a href="patients.html" class="menu-item">
+                <i class="ri-user-heart-line"></i>
+                <span>المرضى</span>
+            </a>
+
+            <a href="doctors.html" class="menu-item">
+                <i class="ri-stethoscope-line"></i>
+                <span>الأطباء</span>
+            </a>
+
+            <a href="appointments.html" class="menu-item">
+                <i class="ri-calendar-check-line"></i>
+                <span>المواعيد</span>
+            </a>
+
+            <a href="medical-records.html" class="menu-item">
+                <i class="ri-file-medical-line"></i>
+                <span>السجلات الطبية</span>
+            </a>
+
+            <a href="diagnosis.html" class="menu-item">
+                <i class="ri-heart-pulse-line"></i>
+                <span>التشخيص</span>
+            </a>
+
+            <a href="prescriptions.html" class="menu-item">
+                <i class="ri-capsule-line"></i>
+                <span>الروشتات</span>
+            </a>
+
+            <a href="tests.html" class="menu-item">
+                <i class="ri-microscope-line"></i>
+                <span>التحاليل والأشعة</span>
+            </a>
+
+            <a href="messages.html" class="menu-item active">
+                <i class="ri-message-3-line"></i>
+                <span>الرسائل</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="menu-item">
+                <i class="ri-settings-3-line"></i>
+                <span>الإعدادات</span>
+            </a>
+
+            <a href="../index.html" class="menu-item logout">
+                <i class="ri-logout-box-r-line"></i>
+                <span>العودة للموقع</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="ri-menu-line"></i>
+            </button>
+
+            <div class="page-title">
+
+                <h1>الرسائل</h1>
+
+                <p>
+                    التواصل مع الأطباء وفريق المستشفى
+                </p>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        <i class="ri-user-line"></i>
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>مدير النظام</strong>
+                        <span>Admin</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="dashboard-content">
+
+            <div class="messages-layout">
+
+
+                <!-- CONVERSATIONS -->
+
+                <div class="conversations">
+
+                    <div class="messages-header">
+
+                        <h2>المحادثات</h2>
+
+                        <p>
+                            آخر الرسائل والتواصل
+                        </p>
+
+                    </div>
+
+
+                    <div class="search-box">
+
+                        <input
+                            type="text"
+                            id="searchMessages"
+                            placeholder="ابحث عن محادثة..."
+                        >
+
+                    </div>
+
+
+                    <div
+                        class="conversation-list"
+                        id="conversationList">
+
+                        <div
+                            class="conversation active"
+                            data-name="أ.د. عمرو الأسود"
+                            data-id="amr">
+
+                            <div class="conversation-avatar">
+                                <i class="ri-user-star-line"></i>
+                            </div>
+
+                            <div class="conversation-info">
+
+                                <strong>
+                                    أ.د. عمرو الأسود
+                                </strong>
+
+                                <span>
+                                    برجاء مراجعة حالة المريض
+                                </span>
+
+                            </div>
+
+                            <div class="conversation-time">
+                                10:30
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="conversation"
+                            data-name="د. أحمد ربيع أبو الحسن"
+                            data-id="ahmed">
+
+                            <div class="conversation-avatar">
+                                <i class="ri-user-line"></i>
+                            </div>
+
+                            <div class="conversation-info">
+
+                                <strong>
+                                    د. أحمد ربيع أبو الحسن
+                                </strong>
+
+                                <span>
+                                    تم تحديث نتائج الفحص
+                                </span>
+
+                            </div>
+
+                            <div class="conversation-time">
+                                09:45
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="conversation"
+                            data-name="د. كريم أبو العز"
+                            data-id="karim">
+
+                            <div class="conversation-avatar">
+                                <i class="ri-user-line"></i>
+                            </div>
+
+                            <div class="conversation-info">
+
+                                <strong>
+                                    د. كريم أبو العز
+                                </strong>
+
+                                <span>
+                                    شكرًا لك
+                                </span>
+
+                            </div>
+
+                            <div class="conversation-time">
+                                أمس
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHAT -->
+
+                <div class="chat">
+
+                    <div class="chat-header">
+
+                        <div class="chat-avatar">
+                            <i class="ri-user-star-line"></i>
+                        </div>
+
+                        <div class="chat-user">
+
+                            <strong id="chatName">
+                                أ.د. عمرو الأسود
+                            </strong>
+
+                            <span>
+                                ● متصل الآن
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="chat-body"
+                        id="chatBody">
+
+                        <div class="date-divider">
+                            <span>
+                                اليوم
+                            </span>
+                        </div>
+
+
+                        <div class="message received">
+
+                            <div class="message-bubble">
+
+                                صباح الخير، برجاء مراجعة حالة المريض
+                                قبل الموعد القادم.
+
+                            </div>
+
+                            <span class="message-time">
+                                10:20 ص
+                            </span>
+
+                        </div>
+
+
+                        <div class="message sent">
+
+                            <div class="message-bubble">
+
+                                تمام دكتور، هراجع الملف الطبي
+                                وأرسل لك التحديث.
+
+                            </div>
+
+                            <span class="message-time">
+                                10:24 ص
+                            </span>
+
+                        </div>
+
+
+                        <div class="message received">
+
+                            <div class="message-bubble">
+
+                                شكرًا، في انتظار التحديث.
+
+                            </div>
+
+                            <span class="message-time">
+                                10:30 ص
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        class="chat-input"
+                        id="messageForm">
+
+                        <button
+                            type="button"
+                            class="attach-btn"
+                            id="attachButton">
+
+                            <i class="ri-attachment-2"></i>
+
+                        </button>
+
+                        <input
+                            type="file"
+                            id="messageFile"
+                            hidden
+                        >
+
+                        <input
+                            type="text"
+                            id="messageInput"
+                            placeholder="اكتب رسالتك هنا..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="submit"
+                            class="send-btn">
+
+                            <i class="ri-send-plane-fill"></i>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 Cairo International Eye Hospital
+            </p>
+
+            <span>
+                CIEH Dashboard
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        const messageForm =
+            document.getElementById("messageForm");
+
+        const messageInput =
+            document.getElementById("messageInput");
+
+        const chatBody =
+            document.getElementById("chatBody");
+
+        const chatName =
+            document.getElementById("chatName");
+
+        const conversations =
+            document.querySelectorAll(".conversation");
+
+
+        let selectedConversation = "amr";
+
+
+        /* =========================
+           SELECT CONVERSATION
+        ========================= */
+
+        conversations.forEach(function (conversation) {
+
+            conversation.addEventListener(
+                "click",
+                function () {
+
+                    conversations.forEach(
+                        function (item) {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    this.classList.add("active");
+
+
+                    selectedConversation =
+                        this.dataset.id;
+
+
+                    chatName.textContent =
+                        this.dataset.name;
+
+
+                    loadSavedMessages();
+
+                }
+            );
+
+        });
+
+
+        /* =========================
+           SEND MESSAGE
+        ========================= */
+
+        messageForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const text =
+                    messageInput.value.trim();
+
+
+                if (!text) {
+                    return;
+                }
+
+
+                addMessage(
+                    text,
+                    "sent"
+                );
+
+
+                saveMessage(
+                    selectedConversation,
+                    text
+                );
+
+
+                messageInput.value = "";
+
+
+                scrollChat();
+
+            }
+        );
+
+
+        /* =========================
+           ADD MESSAGE
+        ========================= */
+
+        function addMessage(
+            text,
+            type
+        ) {
+
+            const message =
+                document.createElement("div");
+
+
+            message.className =
+                "message " + type;
+
+
+            const now =
+                new Date();
+
+
+            const time =
+                now.toLocaleTimeString(
+                    "ar-EG",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                );
+
+
+            message.innerHTML = `
+
+                <div class="message-bubble">
+                    ${escapeHtml(text)}
+                </div>
+
+                <span class="message-time">
+                    ${time}
+                </span>
+
+            `;
+
+
+            chatBody.appendChild(message);
+
+        }
+
+
+        /* =========================
+           SAVE MESSAGE
+        ========================= */
+
+        function saveMessage(
+            conversationId,
+            text
+        ) {
+
+            let messages =
+                JSON.parse(
+                    localStorage.getItem(
+                        "ciehMessages"
+                    )
+                ) || [];
+
+
+            messages.push({
+
+                id: Date.now(),
+
+                conversation:
+                    conversationId,
+
+                text:
+                    text,
+
+                type:
+                    "sent",
+
+                time:
+                    new Date().toLocaleTimeString(
+                        "ar-EG"
+                    )
+
+            });
+
+
+            localStorage.setItem(
+                "ciehMessages",
+                JSON.stringify(messages)
+            );
+
+        }
+
+
+        /* =========================
+           LOAD SAVED MESSAGES
+        ========================= */
+
+        function loadSavedMessages() {
+
+            const savedMessages =
+                JSON.parse(
+                    localStorage.getItem(
+                        "ciehMessages"
+                    )
+                ) || [];
+
+
+            document
+                .querySelectorAll(
+                    "#chatBody .saved-message"
+                )
+                .forEach(function (item) {
+
+                    item.remove();
+
+                });
+
+
+            savedMessages
+                .filter(function (message) {
+
+                    return message.conversation ===
+                        selectedConversation;
+
+                })
+                .forEach(function (message) {
+
+                    const element =
+                        document.createElement("div");
+
+
+                    element.className =
+                        "message sent saved-message";
+
+
+                    element.innerHTML = `
+
+                        <div class="message-bubble">
+                            ${escapeHtml(message.text)}
+                        </div>
+
+                        <span class="message-time">
+                            ${message.time}
+                        </span>
+
+                    `;
+
+
+                    chatBody.appendChild(element);
+
+                });
+
+
+            scrollChat();
+
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        document
+            .getElementById("searchMessages")
+            .addEventListener(
+                "input",
+                function () {
+
+                    const value =
+                        this.value
+                            .trim()
+                            .toLowerCase();
+
+
+                    conversations.forEach(
+                        function (conversation) {
+
+                            const name =
+                                conversation.dataset.name
+                                    .toLowerCase();
+
+
+                            if (
+                                name.includes(value)
+                            ) {
+
+                                conversation.style.display =
+                                    "flex";
+
+                            } else {
+
+                                conversation.style.display =
+                                    "none";
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================
+           ATTACHMENT
+        ========================= */
+
+        document
+            .getElementById("attachButton")
+            .addEventListener(
+                "click",
+                function () {
+
+                    document
+                        .getElementById(
+                            "messageFile"
+                        )
+                        .click();
+
+                }
+            );
+
+
+        document
+            .getElementById("messageFile")
+            .addEventListener(
+                "change",
+                function () {
+
+                    if (this.files.length > 0) {
+
+                        messageInput.value =
+                            "📎 " +
+                            this.files[0].name;
+
+                    }
+
+                }
+            );
+
+
+        /* =========================
+           HELPERS
+        ========================= */
+
+        function scrollChat() {
+
+            chatBody.scrollTop =
+                chatBody.scrollHeight;
+
+        }
+
+
+        function escapeHtml(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =========================
+           MOBILE SIDEBAR
+        ========================= */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener(
+                "click",
+                function () {
+
+                    sidebar.classList.toggle(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+
+        loadSavedMessages();
+
+    </script>
+
+</body>
+
+</html>

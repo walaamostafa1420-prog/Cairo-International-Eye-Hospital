@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الروشتات | CIEH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        .prescription-layout {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 20px;
+        }
+
+        .prescription-card,
+        .medicine-card {
+            background: #fff;
+            border: 1px solid #e6edf1;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .card-title {
+            margin-bottom: 20px;
+        }
+
+        .card-title h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .card-title p {
+            color: #8a9aa5;
+            font-size: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #183b4d;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #e6edf1;
+            border-radius: 10px;
+            padding: 10px 13px;
+            font-family: inherit;
+            font-size: 10px;
+            color: #183b4d;
+            outline: none;
+        }
+
+        .form-group input,
+        .form-group select {
+            height: 44px;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #176b87;
+        }
+
+        .add-medicine {
+            width: 100%;
+            height: 42px;
+            margin-top: 18px;
+            border: 1px dashed #176b87;
+            border-radius: 10px;
+            background: #eef8fa;
+            color: #176b87;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .add-medicine:hover {
+            background: #e2f3f6;
+        }
+
+        .medicine-list {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .medicine-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 13px;
+            border: 1px solid #e6edf1;
+            border-radius: 11px;
+            background: #fafcfd;
+        }
+
+        .medicine-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .medicine-info strong {
+            font-size: 11px;
+            color: #183b4d;
+        }
+
+        .medicine-info span {
+            font-size: 9px;
+            color: #8a9aa5;
+        }
+
+        .remove-medicine {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 8px;
+            background: #fff0f0;
+            color: #d9534f;
+            cursor: pointer;
+        }
+
+        .save-prescription {
+            width: 100%;
+            height: 47px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #176b87;
+            color: #fff;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .save-prescription:hover {
+            background: #10566d;
+        }
+
+        .prescription-preview {
+            background: linear-gradient(145deg, #176b87, #35b7a8);
+            color: #fff;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .prescription-preview h3 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .prescription-preview > p {
+            font-size: 9px;
+            opacity: .8;
+            margin-bottom: 20px;
+        }
+
+        .preview-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,.18);
+            font-size: 10px;
+        }
+
+        .preview-row span {
+            opacity: .75;
+        }
+
+        .preview-medicines {
+            margin-top: 18px;
+        }
+
+        .preview-medicines h4 {
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        .preview-medicine {
+            padding: 9px 10px;
+            margin-bottom: 7px;
+            border-radius: 8px;
+            background: rgba(255,255,255,.13);
+            font-size: 9px;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #e9f8f1;
+            color: #20835f;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .prescription-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                <i class="ri-eye-line"></i>
+            </div>
+
+            <div>
+                <strong>CIEH</strong>
+                <span>Eye Hospital</span>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item">
+                <i class="ri-dashboard-line"></i>
+                <span>لوحة التحكم</span>
+            </a>
+
+            <a href="patients.html" class="menu-item">
+                <i class="ri-user-heart-line"></i>
+                <span>المرضى</span>
+            </a>
+
+            <a href="doctors.html" class="menu-item">
+                <i class="ri-stethoscope-line"></i>
+                <span>الأطباء</span>
+            </a>
+
+            <a href="appointments.html" class="menu-item">
+                <i class="ri-calendar-check-line"></i>
+                <span>المواعيد</span>
+            </a>
+
+            <a href="medical-records.html" class="menu-item">
+                <i class="ri-file-medical-line"></i>
+                <span>السجلات الطبية</span>
+            </a>
+
+            <a href="diagnosis.html" class="menu-item">
+                <i class="ri-heart-pulse-line"></i>
+                <span>التشخيص</span>
+            </a>
+
+            <a href="prescriptions.html" class="menu-item active">
+                <i class="ri-capsule-line"></i>
+                <span>الروشتات</span>
+            </a>
+
+            <a href="tests.html" class="menu-item">
+                <i class="ri-microscope-line"></i>
+                <span>التحاليل والأشعة</span>
+            </a>
+
+            <a href="messages.html" class="menu-item">
+                <i class="ri-message-3-line"></i>
+                <span>الرسائل</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="menu-item">
+                <i class="ri-settings-3-line"></i>
+                <span>الإعدادات</span>
+            </a>
+
+            <a href="../index.html" class="menu-item logout">
+                <i class="ri-logout-box-r-line"></i>
+                <span>العودة للموقع</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="ri-menu-line"></i>
+            </button>
+
+            <div class="page-title">
+
+                <h1>الروشتات</h1>
+
+                <p>
+                    إنشاء وحفظ روشتة طبية للمريض
+                </p>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        <i class="ri-user-line"></i>
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>مدير النظام</strong>
+                        <span>Admin</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="dashboard-content">
+
+            <div class="prescription-layout">
+
+
+                <!-- FORM -->
+
+                <div class="prescription-card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            إنشاء روشتة جديدة
+                        </h2>
+
+                        <p>
+                            أدخل بيانات المريض والأدوية المطلوبة
+                        </p>
+
+                    </div>
+
+
+                    <form id="prescriptionForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>
+                                    اسم المريض
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="patientName"
+                                    placeholder="اسم المريض"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    رقم الملف الطبي
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="fileNumber"
+                                    placeholder="مثال: CIEH-001"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    الطبيب
+                                </label>
+
+                                <select id="doctor" required>
+
+                                    <option value="">
+                                        اختر الطبيب
+                                    </option>
+
+                                    <option>
+                                        أ.د. عمرو الأسود
+                                    </option>
+
+                                    <option>
+                                        د. أحمد ربيع أبو الحسن
+                                    </option>
+
+                                    <option>
+                                        د. كريم أبو العز
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    تاريخ الروشتة
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="prescriptionDate"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    اسم الدواء
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="medicineName"
+                                    placeholder="مثال: قطرة للعين"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    الجرعة
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="dosage"
+                                    placeholder="مثال: نقطة واحدة"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    عدد المرات
+                                </label>
+
+                                <select id="frequency">
+
+                                    <option value="">
+                                        اختر عدد المرات
+                                    </option>
+
+                                    <option>
+                                        مرة يوميًا
+                                    </option>
+
+                                    <option>
+                                        مرتين يوميًا
+                                    </option>
+
+                                    <option>
+                                        3 مرات يوميًا
+                                    </option>
+
+                                    <option>
+                                        4 مرات يوميًا
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    مدة العلاج
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="duration"
+                                    placeholder="مثال: 7 أيام"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    طريقة الاستخدام
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="instructions"
+                                    placeholder="مثال: بعد الأكل"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="add-medicine"
+                            id="addMedicine">
+
+                            <i class="ri-add-line"></i>
+                            إضافة الدواء للروشتة
+
+                        </button>
+
+
+                        <div
+                            class="medicine-list"
+                            id="medicineList">
+                        </div>
+
+
+                        <div
+                            class="success-message"
+                            id="successMessage">
+
+                            تم حفظ الروشتة بنجاح ✓
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="save-prescription">
+
+                            <i class="ri-save-line"></i>
+                            حفظ الروشتة
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- PREVIEW -->
+
+                <div class="prescription-preview">
+
+                    <h3>
+                        معاينة الروشتة
+                    </h3>
+
+                    <p>
+                        ستظهر البيانات هنا قبل الحفظ
+                    </p>
+
+
+                    <div class="preview-row">
+
+                        <span>
+                            المريض
+                        </span>
+
+                        <strong id="previewPatient">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="preview-row">
+
+                        <span>
+                            الطبيب
+                        </span>
+
+                        <strong id="previewDoctor">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="preview-row">
+
+                        <span>
+                            التاريخ
+                        </span>
+
+                        <strong id="previewDate">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="preview-medicines">
+
+                        <h4>
+                            الأدوية
+                        </h4>
+
+                        <div id="previewMedicines">
+
+                            <div class="preview-medicine">
+                                لم تتم إضافة أدوية بعد
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 Cairo International Eye Hospital
+            </p>
+
+            <span>
+                CIEH Dashboard
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        /* =========================
+           ELEMENTS
+        ========================= */
+
+        const prescriptionForm =
+            document.getElementById("prescriptionForm");
+
+        const patientName =
+            document.getElementById("patientName");
+
+        const doctor =
+            document.getElementById("doctor");
+
+        const prescriptionDate =
+            document.getElementById("prescriptionDate");
+
+        const medicineName =
+            document.getElementById("medicineName");
+
+        const dosage =
+            document.getElementById("dosage");
+
+        const frequency =
+            document.getElementById("frequency");
+
+        const duration =
+            document.getElementById("duration");
+
+        const instructions =
+            document.getElementById("instructions");
+
+        const medicineList =
+            document.getElementById("medicineList");
+
+        const previewMedicines =
+            document.getElementById("previewMedicines");
+
+
+        let medicines = [];
+
+
+        /* =========================
+           LIVE PREVIEW
+        ========================= */
+
+        patientName.addEventListener("input", function () {
+
+            document.getElementById(
+                "previewPatient"
+            ).textContent = this.value || "—";
+
+        });
+
+
+        doctor.addEventListener("change", function () {
+
+            document.getElementById(
+                "previewDoctor"
+            ).textContent = this.value || "—";
+
+        });
+
+
+        prescriptionDate.addEventListener("change", function () {
+
+            document.getElementById(
+                "previewDate"
+            ).textContent = this.value || "—";
+
+        });
+
+
+        /* =========================
+           ADD MEDICINE
+        ========================= */
+
+        document
+            .getElementById("addMedicine")
+            .addEventListener("click", function () {
+
+                const name =
+                    medicineName.value.trim();
+
+                if (!name) {
+
+                    alert("اكتبي اسم الدواء أولًا.");
+
+                    return;
+
+                }
+
+
+                const medicine = {
+
+                    id: Date.now(),
+
+                    name: name,
+
+                    dosage:
+                        dosage.value.trim() || "—",
+
+                    frequency:
+                        frequency.value || "—",
+
+                    duration:
+                        duration.value.trim() || "—",
+
+                    instructions:
+                        instructions.value.trim() || "—"
+
+                };
+
+
+                medicines.push(medicine);
+
+
+                renderMedicines();
+
+
+                medicineName.value = "";
+                dosage.value = "";
+                frequency.value = "";
+                duration.value = "";
+                instructions.value = "";
+
+            });
+
+
+        /* =========================
+           RENDER MEDICINES
+        ========================= */
+
+        function renderMedicines() {
+
+            if (medicines.length === 0) {
+
+                medicineList.innerHTML = "";
+
+                previewMedicines.innerHTML = `
+                    <div class="preview-medicine">
+                        لم تتم إضافة أدوية بعد
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            medicineList.innerHTML =
+                medicines.map(function (medicine) {
+
+                    return `
+                        <div class="medicine-item">
+
+                            <div class="medicine-info">
+
+                                <strong>
+                                    ${medicine.name}
+                                </strong>
+
+                                <span>
+                                    الجرعة:
+                                    ${medicine.dosage}
+                                    |
+                                    ${medicine.frequency}
+                                    |
+                                    ${medicine.duration}
+                                </span>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="remove-medicine"
+                                onclick="removeMedicine(${medicine.id})">
+
+                                <i class="ri-delete-bin-line"></i>
+
+                            </button>
+
+                        </div>
+                    `;
+
+                }).join("");
+
+
+            previewMedicines.innerHTML =
+                medicines.map(function (medicine) {
+
+                    return `
+                        <div class="preview-medicine">
+
+                            <strong>
+                                ${medicine.name}
+                            </strong>
+
+                            <br>
+
+                            ${medicine.dosage}
+                            —
+                            ${medicine.frequency}
+                            —
+                            ${medicine.duration}
+
+                        </div>
+                    `;
+
+                }).join("");
+
+        }
+
+
+        /* =========================
+           REMOVE MEDICINE
+        ========================= */
+
+        function removeMedicine(id) {
+
+            medicines =
+                medicines.filter(function (medicine) {
+
+                    return medicine.id !== id;
+
+                });
+
+            renderMedicines();
+
+        }
+
+
+        /* =========================
+           SAVE PRESCRIPTION
+        ========================= */
+
+        prescriptionForm
+            .addEventListener("submit", function (event) {
+
+                event.preventDefault();
+
+
+                if (medicines.length === 0) {
+
+                    alert(
+                        "من فضلك أضيفي دواء واحد على الأقل."
+                    );
+
+                    return;
+
+                }
+
+
+                const prescription = {
+
+                    id: Date.now(),
+
+                    patient:
+                        patientName.value,
+
+                    fileNumber:
+                        document.getElementById(
+                            "fileNumber"
+                        ).value,
+
+                    doctor:
+                        doctor.value,
+
+                    date:
+                        prescriptionDate.value,
+
+                    medicines:
+                        medicines
+
+                };
+
+
+                let prescriptions =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "ciehPrescriptions"
+                        )
+                    ) || [];
+
+
+                prescriptions.push(prescription);
+
+
+                localStorage.setItem(
+                    "ciehPrescriptions",
+                    JSON.stringify(
+                        prescriptions
+                    )
+                );
+
+
+                document.getElementById(
+                    "successMessage"
+                ).style.display = "block";
+
+
+                prescriptionForm.reset();
+
+                medicines = [];
+
+                renderMedicines();
+
+
+                document.getElementById(
+                    "previewPatient"
+                ).textContent = "—";
+
+                document.getElementById(
+                    "previewDoctor"
+                ).textContent = "—";
+
+                document.getElementById(
+                    "previewDate"
+                ).textContent = "—";
+
+            });
+
+
+        /* =========================
+           MOBILE SIDEBAR
+        ========================= */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener(
+                "click",
+                function () {
+
+                    sidebar.classList.toggle(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

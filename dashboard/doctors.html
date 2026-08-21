@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الأطباء | CIEH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        .doctors-toolbar {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .doctor-search {
+            flex: 1;
+            height: 46px;
+            background: white;
+            border: 1px solid #e6edf1;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 15px;
+        }
+
+        .doctor-search i {
+            color: #8a9aa5;
+            font-size: 18px;
+        }
+
+        .doctor-search input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .doctor-card {
+            background: white;
+            border: 1px solid #e6edf1;
+            border-radius: 16px;
+            padding: 22px;
+            transition: .25s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(24, 59, 77, .09);
+        }
+
+        .doctor-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .doctor-photo {
+            width: 58px;
+            height: 58px;
+            border-radius: 15px;
+            background: #eaf7fa;
+            color: #176b87;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .doctor-name {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doctor-name strong {
+            font-size: 14px;
+        }
+
+        .doctor-name span {
+            color: #8a9aa5;
+            font-size: 10px;
+        }
+
+        .doctor-status {
+            margin-right: auto;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #e9f8f1;
+            color: #25a878;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .doctor-info {
+            border-top: 1px solid #edf2f4;
+            padding-top: 15px;
+        }
+
+        .doctor-detail {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 11px;
+            color: #607681;
+            font-size: 10px;
+        }
+
+        .doctor-detail i {
+            color: #176b87;
+            font-size: 16px;
+        }
+
+        .doctor-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .choose-doctor {
+            flex: 1;
+            height: 40px;
+            border: none;
+            border-radius: 9px;
+            background: #176b87;
+            color: white;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .choose-doctor:hover {
+            background: #10566d;
+        }
+
+        .doctor-details-btn {
+            width: 42px;
+            height: 40px;
+            border: 1px solid #e6edf1;
+            border-radius: 9px;
+            background: white;
+            color: #176b87;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1000px) {
+            .doctors-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .doctors-toolbar {
+                flex-direction: column;
+            }
+
+            .doctors-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                <i class="ri-eye-line"></i>
+            </div>
+
+            <div>
+                <strong>CIEH</strong>
+                <span>Eye Hospital</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item">
+                <i class="ri-dashboard-line"></i>
+                <span>لوحة التحكم</span>
+            </a>
+
+            <a href="patients.html" class="menu-item">
+                <i class="ri-user-heart-line"></i>
+                <span>المرضى</span>
+            </a>
+
+            <a href="doctors.html" class="menu-item active">
+                <i class="ri-stethoscope-line"></i>
+                <span>الأطباء</span>
+            </a>
+
+            <a href="appointments.html" class="menu-item">
+                <i class="ri-calendar-check-line"></i>
+                <span>المواعيد</span>
+            </a>
+
+            <a href="medical-records.html" class="menu-item">
+                <i class="ri-file-medical-line"></i>
+                <span>السجلات الطبية</span>
+            </a>
+
+            <a href="diagnosis.html" class="menu-item">
+                <i class="ri-heart-pulse-line"></i>
+                <span>التشخيص</span>
+            </a>
+
+            <a href="prescriptions.html" class="menu-item">
+                <i class="ri-capsule-line"></i>
+                <span>الروشتات</span>
+            </a>
+
+            <a href="tests.html" class="menu-item">
+                <i class="ri-microscope-line"></i>
+                <span>التحاليل والأشعة</span>
+            </a>
+
+            <a href="messages.html" class="menu-item">
+                <i class="ri-message-3-line"></i>
+                <span>الرسائل</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="menu-item">
+                <i class="ri-settings-3-line"></i>
+                <span>الإعدادات</span>
+            </a>
+
+            <a href="../index.html" class="menu-item logout">
+                <i class="ri-logout-box-r-line"></i>
+                <span>العودة للموقع</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="ri-menu-line"></i>
+            </button>
+
+            <div class="page-title">
+
+                <h1>الأطباء</h1>
+
+                <p>
+                    اختر الطبيب المناسب واحجز موعدك
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        <i class="ri-user-line"></i>
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>مدير النظام</strong>
+                        <span>Admin</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <section class="dashboard-content">
+
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            أطباء المستشفى
+                        </h3>
+
+                        <p>
+                            اختر الطبيب المناسب لحجز موعد
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="doctors-toolbar">
+
+                    <div class="doctor-search">
+
+                        <i class="ri-search-line"></i>
+
+                        <input
+                            type="text"
+                            id="doctorSearch"
+                            placeholder="ابحث عن الطبيب..."
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        <i class="ri-stethoscope-line"></i>
+                    </div>
+
+                    <div class="stat-info">
+                        <span>أطباء المستشفى</span>
+                        <strong>3</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        <i class="ri-user-follow-line"></i>
+                    </div>
+
+                    <div class="stat-info">
+                        <span>الأطباء المتاحون</span>
+                        <strong>3</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        <i class="ri-calendar-check-line"></i>
+                    </div>
+
+                    <div class="stat-info">
+                        <span>مواعيد اليوم</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        <i class="ri-user-search-line"></i>
+                    </div>
+
+                    <div class="stat-info">
+                        <span>اختيار الطبيب</span>
+                        <strong>متاح</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCTORS -->
+
+            <div class="doctors-grid" id="doctorsGrid">
+
+
+                <!-- الطبيب الأول -->
+
+                <div class="doctor-card">
+
+                    <div class="doctor-top">
+
+                        <div class="doctor-photo">
+                            <i class="ri-user-star-line"></i>
+                        </div>
+
+                        <div class="doctor-name">
+
+                            <strong>
+                                أ.د. عمرو الأسود
+                            </strong>
+
+                            <span>
+                                طبيب بالمستشفى
+                            </span>
+
+                        </div>
+
+                        <span class="doctor-status">
+                            متاح
+                        </span>
+
+                    </div>
+
+
+                    <div class="doctor-info">
+
+                        <div class="doctor-detail">
+
+                            <i class="ri-stethoscope-line"></i>
+
+                            <span>
+                                استشاري القرينه وجراجات الميه البيضاء وتصحيح النظر
+                            </span>
+
+                        </div>
+
+                        <div class="doctor-detail">
+
+                            <i class="ri-hospital-line"></i>
+
+                            <span>
+                                Cairo International Eye Hospital
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="doctor-actions">
+
+                        <button
+                            class="choose-doctor"
+                            onclick="chooseDoctor('أ.د. عمرو الأسود')">
+
+                            احجز مع الطبيب
+
+                        </button>
+
+                        <button
+                            class="doctor-details-btn"
+                            onclick="showDoctor('أ.د. عمرو الأسود')">
+
+                            <i class="ri-information-line"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- الطبيب الثاني -->
+
+                <div class="doctor-card">
+
+                    <div class="doctor-top">
+
+                        <div class="doctor-photo">
+                            <i class="ri-user-star-line"></i>
+                        </div>
+
+                        <div class="doctor-name">
+
+                            <strong>
+                                د. أحمد ربيع أبو الحسن
+                            </strong>
+
+                            <span>
+                                طبيب بالمستشفى
+                            </span>
+
+                        </div>
+
+                        <span class="doctor-status">
+                            متاح
+                        </span>
+
+                    </div>
+
+
+                    <div class="doctor-info">
+
+                        <div class="doctor-detail">
+
+                            <i class="ri-stethoscope-line"></i>
+
+                            <span>
+                            اخصائي طب وجراحه العيون
+                            </span>
+
+                        </div>
+
+                        <div class="doctor-detail">
+
+                            <i class="ri-hospital-line"></i>
+
+                            <span>
+                                Cairo International Eye Hospital
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="doctor-actions">
+
+                        <button
+                            class="choose-doctor"
+                            onclick="chooseDoctor('د. أحمد ربيع أبو الحسن')">
+
+                            احجز مع الطبيب
+
+                        </button>
+
+                        <button
+                            class="doctor-details-btn"
+                            onclick="showDoctor('د. أحمد ربيع أبو الحسن')">
+
+                            <i class="ri-information-line"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- الطبيب الثالث -->
+
+                <div class="doctor-card">
+
+                    <div class="doctor-top">
+
+                        <div class="doctor-photo">
+                            <i class="ri-user-star-line"></i>
+                        </div>
+
+                        <div class="doctor-name">
+
+                            <strong>
+                                د. كريم أبو العز
+                            </strong>
+
+                            <span>
+                                طبيب بالمستشفى
+                            </span>
+
+                        </div>
+
+                        <span class="doctor-status">
+                            متاح
+                        </span>
+
+                    </div>
+
+
+                    <div class="doctor-info">
+
+                        <div class="doctor-detail">
+
+                            <i class="ri-stethoscope-line"></i>
+
+                            <span>
+                                استشاري طب وجراحه العيون
+                                استشاري جراحات الشبكيه والجسم الزجاجي والليزر
+                            </span>
+
+                        </div>
+
+                        <div class="doctor-detail">
+
+                            <i class="ri-hospital-line"></i>
+
+                            <span>
+                                Cairo International Eye Hospital
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="doctor-actions">
+
+                        <button
+                            class="choose-doctor"
+                            onclick="chooseDoctor('د. كريم أبو العز')">
+
+                            احجز مع الطبيب
+
+                        </button>
+
+                        <button
+                            class="doctor-details-btn"
+                            onclick="showDoctor('د. كريم أبو العز')">
+
+                            <i class="ri-information-line"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 Cairo International Eye Hospital
+            </p>
+
+            <span>
+                CIEH Dashboard
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        /* البحث عن الطبيب */
+
+        const search =
+            document.getElementById("doctorSearch");
+
+        const doctors =
+            document.querySelectorAll(".doctor-card");
+
+
+        search.addEventListener("input", function () {
+
+            const value =
+                this.value.toLowerCase();
+
+            doctors.forEach(function (doctor) {
+
+                const text =
+                    doctor.textContent.toLowerCase();
+
+                if (text.includes(value)) {
+
+                    doctor.style.display = "";
+
+                } else {
+
+                    doctor.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+
+        /* اختيار الطبيب */
+
+        function chooseDoctor(doctorName) {
+
+            window.location.href =
+                "appointments.html?doctor=" +
+                encodeURIComponent(doctorName);
+
+        }
+
+
+        /* تفاصيل الطبيب */
+
+        function showDoctor(doctorName) {
+
+            alert(
+                "الطبيب المختار:\n\n" +
+                doctorName
+            );
+
+        }
+
+
+        /* القائمة الجانبية */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener("click", function () {
+
+                sidebar.classList.toggle("active");
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

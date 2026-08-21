@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>التشخيص | CIEH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        .diagnosis-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+        }
+
+        .diagnosis-card {
+            background: #fff;
+            border: 1px solid #e6edf1;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .card-title {
+            margin-bottom: 20px;
+        }
+
+        .card-title h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .card-title p {
+            color: #8a9aa5;
+            font-size: 10px;
+        }
+
+        .patient-box {
+            background: #eef8fa;
+            border: 1px solid #d8eef2;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .patient-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #fff;
+            color: #176b87;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .patient-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .patient-info span {
+            font-size: 9px;
+            color: #8a9aa5;
+        }
+
+        .patient-info strong {
+            font-size: 13px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #183b4d;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #e6edf1;
+            border-radius: 10px;
+            padding: 11px 13px;
+            font-family: inherit;
+            font-size: 10px;
+            outline: none;
+            color: #183b4d;
+            background: #fff;
+        }
+
+        .form-group input,
+        .form-group select {
+            height: 44px;
+        }
+
+        .form-group textarea {
+            min-height: 95px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #176b87;
+        }
+
+        .symptoms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .symptom {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #e2eaee;
+            background: #fff;
+            color: #607681;
+            font-family: inherit;
+            font-size: 9px;
+            cursor: pointer;
+        }
+
+        .symptom.active {
+            background: #176b87;
+            color: #fff;
+            border-color: #176b87;
+        }
+
+        .save-diagnosis {
+            width: 100%;
+            height: 46px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #176b87;
+            color: #fff;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .save-diagnosis:hover {
+            background: #10566d;
+        }
+
+        .diagnosis-summary {
+            background: linear-gradient(145deg, #176b87, #35b7a8);
+            color: #fff;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .diagnosis-summary h3 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .diagnosis-summary > p {
+            font-size: 9px;
+            opacity: .8;
+            margin-bottom: 22px;
+        }
+
+        .summary-item {
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255,255,255,.18);
+        }
+
+        .summary-item span {
+            display: block;
+            font-size: 9px;
+            opacity: .75;
+            margin-bottom: 5px;
+        }
+
+        .summary-item strong {
+            font-size: 11px;
+        }
+
+        .diagnosis-status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255,255,255,.14);
+            font-size: 9px;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #e9f8f1;
+            color: #20835f;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .diagnosis-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                <i class="ri-eye-line"></i>
+            </div>
+
+            <div>
+                <strong>CIEH</strong>
+                <span>Eye Hospital</span>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item">
+                <i class="ri-dashboard-line"></i>
+                <span>لوحة التحكم</span>
+            </a>
+
+            <a href="patients.html" class="menu-item">
+                <i class="ri-user-heart-line"></i>
+                <span>المرضى</span>
+            </a>
+
+            <a href="doctors.html" class="menu-item">
+                <i class="ri-stethoscope-line"></i>
+                <span>الأطباء</span>
+            </a>
+
+            <a href="appointments.html" class="menu-item">
+                <i class="ri-calendar-check-line"></i>
+                <span>المواعيد</span>
+            </a>
+
+            <a href="medical-records.html" class="menu-item">
+                <i class="ri-file-medical-line"></i>
+                <span>السجلات الطبية</span>
+            </a>
+
+            <a href="diagnosis.html" class="menu-item active">
+                <i class="ri-heart-pulse-line"></i>
+                <span>التشخيص</span>
+            </a>
+
+            <a href="prescriptions.html" class="menu-item">
+                <i class="ri-capsule-line"></i>
+                <span>الروشتات</span>
+            </a>
+
+            <a href="tests.html" class="menu-item">
+                <i class="ri-microscope-line"></i>
+                <span>التحاليل والأشعة</span>
+            </a>
+
+            <a href="messages.html" class="menu-item">
+                <i class="ri-message-3-line"></i>
+                <span>الرسائل</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="menu-item">
+                <i class="ri-settings-3-line"></i>
+                <span>الإعدادات</span>
+            </a>
+
+            <a href="../index.html" class="menu-item logout">
+                <i class="ri-logout-box-r-line"></i>
+                <span>العودة للموقع</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="ri-menu-line"></i>
+            </button>
+
+            <div class="page-title">
+
+                <h1>التشخيص</h1>
+
+                <p>
+                    تسجيل ومتابعة تشخيص المريض
+                </p>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        <i class="ri-user-line"></i>
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>مدير النظام</strong>
+                        <span>Admin</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="dashboard-content">
+
+            <div class="diagnosis-layout">
+
+
+                <!-- DIAGNOSIS FORM -->
+
+                <div class="diagnosis-card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            تسجيل تشخيص جديد
+                        </h2>
+
+                        <p>
+                            أدخل بيانات الفحص والتشخيص للمريض
+                        </p>
+
+                    </div>
+
+
+                    <div class="patient-box">
+
+                        <div class="patient-icon">
+                            <i class="ri-user-heart-line"></i>
+                        </div>
+
+                        <div class="patient-info">
+
+                            <span>
+                                المريض
+                            </span>
+
+                            <strong>
+                                اختر المريض من القائمة
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <form id="diagnosisForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>
+                                    اسم المريض
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="patientName"
+                                    placeholder="اسم المريض"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    رقم الملف الطبي
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="fileNumber"
+                                    placeholder="مثال: CIEH-001"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    الطبيب
+                                </label>
+
+                                <select id="doctor" required>
+
+                                    <option value="">
+                                        اختر الطبيب
+                                    </option>
+
+                                    <option>
+                                        أ.د. عمرو الأسود
+                                    </option>
+
+                                    <option>
+                                        د. أحمد ربيع أبو الحسن
+                                    </option>
+
+                                    <option>
+                                        د. كريم أبو العز
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    نوع الفحص
+                                </label>
+
+                                <select id="examType" required>
+
+                                    <option value="">
+                                        اختر نوع الفحص
+                                    </option>
+
+                                    <option>
+                                        فحص نظر
+                                    </option>
+
+                                    <option>
+                                        فحص ضغط العين
+                                    </option>
+
+                                    <option>
+                                        فحص الشبكية
+                                    </option>
+
+                                    <option>
+                                        فحص القرنية
+                                    </option>
+
+                                    <option>
+                                        فحص شامل للعين
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    الأعراض
+                                </label>
+
+                                <div class="symptoms">
+
+                                    <button type="button" class="symptom">
+                                        ضعف النظر
+                                    </button>
+
+                                    <button type="button" class="symptom">
+                                        احمرار العين
+                                    </button>
+
+                                    <button type="button" class="symptom">
+                                        ألم العين
+                                    </button>
+
+                                    <button type="button" class="symptom">
+                                        جفاف العين
+                                    </button>
+
+                                    <button type="button" class="symptom">
+                                        زغللة
+                                    </button>
+
+                                    <button type="button" class="symptom">
+                                        حساسية الضوء
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    التشخيص
+                                </label>
+
+                                <select id="diagnosis" required>
+
+                                    <option value="">
+                                        اختر التشخيص
+                                    </option>
+
+                                    <option>
+                                        قصر النظر
+                                    </option>
+
+                                    <option>
+                                        طول النظر
+                                    </option>
+
+                                    <option>
+                                        جفاف العين
+                                    </option>
+
+                                    <option>
+                                        التهاب العين
+                                    </option>
+
+                                    <option>
+                                        المياه البيضاء
+                                    </option>
+
+                                    <option>
+                                        يحتاج إلى فحص إضافي
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    درجة الحالة
+                                </label>
+
+                                <select id="severity">
+
+                                    <option value="">
+                                        اختر درجة الحالة
+                                    </option>
+
+                                    <option>
+                                        بسيطة
+                                    </option>
+
+                                    <option>
+                                        متوسطة
+                                    </option>
+
+                                    <option>
+                                        شديدة
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    ملاحظات الطبيب
+                                </label>
+
+                                <textarea
+                                    id="notes"
+                                    placeholder="اكتب ملاحظات الطبيب..."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="save-diagnosis">
+
+                            <i class="ri-save-line"></i>
+
+                            حفظ التشخيص
+
+                        </button>
+
+
+                        <div
+                            class="success-message"
+                            id="successMessage">
+
+                            تم حفظ التشخيص بنجاح ✓
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- SUMMARY -->
+
+                <div class="diagnosis-summary">
+
+                    <h3>
+                        ملخص التشخيص
+                    </h3>
+
+                    <p>
+                        البيانات التي تم إدخالها
+                    </p>
+
+
+                    <div class="summary-item">
+
+                        <span>
+                            المريض
+                        </span>
+
+                        <strong id="summaryPatient">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>
+                            الطبيب
+                        </span>
+
+                        <strong id="summaryDoctor">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>
+                            نوع الفحص
+                        </span>
+
+                        <strong id="summaryExam">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>
+                            التشخيص
+                        </span>
+
+                        <strong id="summaryDiagnosis">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>
+                            درجة الحالة
+                        </span>
+
+                        <strong id="summarySeverity">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="diagnosis-status">
+
+                        <i class="ri-information-line"></i>
+
+                        يرجى مراجعة البيانات قبل حفظ التشخيص.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 Cairo International Eye Hospital
+            </p>
+
+            <span>
+                CIEH Dashboard
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        /* =========================
+           LIVE SUMMARY
+        ========================= */
+
+        const patientName =
+            document.getElementById("patientName");
+
+        const doctor =
+            document.getElementById("doctor");
+
+        const examType =
+            document.getElementById("examType");
+
+        const diagnosis =
+            document.getElementById("diagnosis");
+
+        const severity =
+            document.getElementById("severity");
+
+
+        patientName.addEventListener("input", function () {
+
+            document.getElementById(
+                "summaryPatient"
+            ).textContent = this.value || "—";
+
+        });
+
+
+        doctor.addEventListener("change", function () {
+
+            document.getElementById(
+                "summaryDoctor"
+            ).textContent = this.value || "—";
+
+        });
+
+
+        examType.addEventListener("change", function () {
+
+            document.getElementById(
+                "summaryExam"
+            ).textContent = this.value || "—";
+
+        });
+
+
+        diagnosis.addEventListener("change", function () {
+
+            document.getElementById(
+                "summaryDiagnosis"
+            ).textContent = this.value || "—";
+
+        });
+
+
+        severity.addEventListener("change", function () {
+
+            document.getElementById(
+                "summarySeverity"
+            ).textContent = this.value || "—";
+
+        });
+
+
+        /* =========================
+           SYMPTOMS
+        ========================= */
+
+        const symptoms =
+            document.querySelectorAll(".symptom");
+
+
+        symptoms.forEach(function (symptom) {
+
+            symptom.addEventListener("click", function () {
+
+                this.classList.toggle("active");
+
+            });
+
+        });
+
+
+        /* =========================
+           SAVE DIAGNOSIS
+        ========================= */
+
+        const diagnosisForm =
+            document.getElementById("diagnosisForm");
+
+        const successMessage =
+            document.getElementById("successMessage");
+
+
+        diagnosisForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+
+            const selectedSymptoms = [];
+
+            document
+                .querySelectorAll(".symptom.active")
+                .forEach(function (item) {
+
+                    selectedSymptoms.push(
+                        item.textContent.trim()
+                    );
+
+                });
+
+
+            const diagnosisData = {
+
+                id: Date.now(),
+
+                patient:
+                    patientName.value,
+
+                fileNumber:
+                    document.getElementById(
+                        "fileNumber"
+                    ).value,
+
+                doctor:
+                    doctor.value,
+
+                examType:
+                    examType.value,
+
+                symptoms:
+                    selectedSymptoms,
+
+                diagnosis:
+                    diagnosis.value,
+
+                severity:
+                    severity.value,
+
+                notes:
+                    document.getElementById(
+                        "notes"
+                    ).value,
+
+                date:
+                    new Date().toLocaleDateString(
+                        "ar-EG"
+                    )
+
+            };
+
+
+            let diagnoses =
+                JSON.parse(
+                    localStorage.getItem(
+                        "ciehDiagnoses"
+                    )
+                ) || [];
+
+
+            diagnoses.push(diagnosisData);
+
+
+            localStorage.setItem(
+                "ciehDiagnoses",
+                JSON.stringify(diagnoses)
+            );
+
+
+            successMessage.style.display =
+                "block";
+
+
+            diagnosisForm.reset();
+
+
+            document
+                .querySelectorAll(".symptom.active")
+                .forEach(function (item) {
+
+                    item.classList.remove("active");
+
+                });
+
+
+            document.getElementById(
+                "summaryPatient"
+            ).textContent = "—";
+
+            document.getElementById(
+                "summaryDoctor"
+            ).textContent = "—";
+
+            document.getElementById(
+                "summaryExam"
+            ).textContent = "—";
+
+            document.getElementById(
+                "summaryDiagnosis"
+            ).textContent = "—";
+
+            document.getElementById(
+                "summarySeverity"
+            ).textContent = "—";
+
+        });
+
+
+        /* =========================
+           MOBILE SIDEBAR
+        ========================= */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener(
+                "click",
+                function () {
+
+                    sidebar.classList.toggle(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
