@@ -282,7 +282,7 @@
 
 <body>
 
-    <!-- SIDEBAR -->
+    
 
     <aside class="sidebar" id="sidebar">
 
@@ -367,7 +367,7 @@
     </aside>
 
 
-    <!-- MAIN -->
+    
 
     <main class="main-content">
 
@@ -429,7 +429,7 @@
             <div class="booking-layout">
 
 
-                <!-- FORM -->
+                
 
                 <div class="booking-card">
 
@@ -446,7 +446,7 @@
                     </div>
 
 
-                    <!-- SELECTED DOCTOR -->
+            
 
                     <div class="selected-doctor">
 
@@ -687,7 +687,7 @@
                 </div>
 
 
-                <!-- SUMMARY -->
+                
 
                 <div class="booking-summary">
 
@@ -800,9 +800,7 @@
 
     <script>
 
-        /* =========================
-           GET DOCTOR FROM URL
-        ========================= */
+    
 
         const params =
             new URLSearchParams(window.location.search);
@@ -827,9 +825,7 @@
         }
 
 
-        /* =========================
-           CHANGE DOCTOR
-        ========================= */
+
 
         function goToDoctors() {
 
@@ -838,9 +834,7 @@
         }
 
 
-        /* =========================
-           TIME SELECTION
-        ========================= */
+    
 
         const timeSlots =
             document.querySelectorAll(".time-slot");
@@ -869,9 +863,6 @@
         });
 
 
-        /* =========================
-           PATIENT NAME
-        ========================= */
 
         const patientName =
             document.getElementById("patientName");
@@ -888,9 +879,7 @@
         });
 
 
-        /* =========================
-           DATE
-        ========================= */
+    
 
         const appointmentDate =
             document.getElementById("appointmentDate");
@@ -918,9 +907,6 @@
         });
 
 
-        /* =========================
-           VISIT TYPE
-        ========================= */
 
         const visitType =
             document.getElementById("visitType");
@@ -937,9 +923,7 @@
         });
 
 
-        /* =========================
-           CONFIRM BOOKING
-        ========================= */
+
 
         const confirmBooking =
             document.getElementById("confirmBooking");
@@ -985,20 +969,20 @@
         reason: document.getElementById("reason").value
     };
 
-    // جلب الحجوزات القديمة
+    
     let appointments =
         JSON.parse(localStorage.getItem("ciehAppointments")) || [];
 
-    // إضافة الحجز الجديد
+    
     appointments.push(appointment);
 
-    // حفظ الحجوزات
+    
     localStorage.setItem(
         "ciehAppointments",
         JSON.stringify(appointments)
     );
 
-    // إظهار رسالة النجاح
+    
     successMessage.style.display = "block";
 
     confirmBooking.textContent =
@@ -1009,9 +993,7 @@
 });
 
 
-        /* =========================
-           MOBILE SIDEBAR
-        ========================= */
+        
 
         const menuToggle =
             document.getElementById("menuToggle");
@@ -1151,7 +1133,7 @@ function displayAppointments() {
 }
 
 
-/* تشغيل عرض المواعيد */
+
 
 displayAppointments();
 
