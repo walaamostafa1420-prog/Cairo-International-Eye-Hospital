@@ -189,11 +189,6 @@ img {
     transform: translateY(-3px);
 }
 
-
-/* =====================================================
-   NAVBAR
-===================================================== */
-
 .navbar {
     position: sticky;
     top: 0;
@@ -218,9 +213,6 @@ img {
 
     gap: 25px;
 }
-
-
-/* LOGO */
 
 .logo {
     display: flex;
@@ -268,8 +260,6 @@ img {
 }
 
 
-/* NAVIGATION */
-
 .nav-menu {
     display: flex;
     align-items: center;
@@ -316,7 +306,7 @@ img {
 }
 
 
-/* NAV ACTIONS */
+
 
 .nav-actions {
     display: flex;
@@ -361,9 +351,7 @@ img {
 }
 
 
-/* =====================================================
-   BUTTONS
-===================================================== */
+
 
 .btn {
     display: inline-flex;
@@ -416,9 +404,7 @@ img {
 }
 
 
-/* =====================================================
-   MOBILE MENU
-===================================================== */
+
 
 .menu-toggle {
     display: none;
@@ -433,9 +419,7 @@ img {
 }
 
 
-/* =====================================================
-   HERO
-===================================================== */
+
 
 .hero {
     padding: 90px 0 100px;
@@ -580,11 +564,6 @@ img {
 
     font-size: 12px;
 }
-
-
-/* =====================================================
-   HERO VISUAL
-===================================================== */
 
 .hero-visual {
     min-height: 480px;
@@ -888,9 +867,7 @@ img {
 }
 
 
-/* =====================================================
-   DOCTORS
-===================================================== */
+
 
 .doctors {
     background: white;
@@ -1016,9 +993,7 @@ img {
 p[data-i18n="doctorDescription"]{
     color:#183b56 !important;
 }
-/* =====================================================
-   SERVICES
-===================================================== */
+
 
 .services {
     background: #f7fbff;
@@ -1094,9 +1069,6 @@ p[data-i18n="doctorDescription"]{
 
 
 
-/* =====================================================
-   ABOUT
-===================================================== */
 
 .about {
     background: white;
@@ -1496,7 +1468,7 @@ html[dir="ltr"] .footer-links a:hover {
     }
 
 
-    /* NAVBAR */
+    
 
     .navbar-container {
         min-height: 70px;
@@ -1562,7 +1534,7 @@ html[dir="ltr"] .footer-links a:hover {
     }
 
 
-    /* HERO */
+    
 
     .hero {
         padding: 60px 0;
@@ -1615,7 +1587,7 @@ html[dir="ltr"] .footer-links a:hover {
     }
 
 
-    /* BOOKING */
+    
 
     .booking-card {
         padding: 30px 20px;
@@ -1636,7 +1608,7 @@ html[dir="ltr"] .footer-links a:hover {
     }
 
 
-    /* DOCTORS */
+    
 
     .doctors-grid {
         grid-template-columns: 1fr;
@@ -1651,14 +1623,14 @@ html[dir="ltr"] .footer-links a:hover {
     }
 
 
-    /* SERVICES */
+    
 
     .services-grid {
         grid-template-columns: 1fr;
     }
 
 
-    /* ABOUT */
+    
 
     .about-container {
         grid-template-columns: 1fr;
@@ -1680,14 +1652,10 @@ html[dir="ltr"] .footer-links a:hover {
     }
 
 
-    /* CONTACT */
-
     .contact-grid {
         grid-template-columns: 1fr;
     }
 
-
-    /* FOOTER */
 
     .footer-container {
         grid-template-columns: 1fr;
