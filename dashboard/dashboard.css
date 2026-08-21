@@ -41,9 +41,7 @@ button {
 }
 
 
-/* =========================
-   SIDEBAR
-========================= */
+
 
 .sidebar {
     position: fixed;
@@ -63,8 +61,6 @@ button {
     z-index: 1000;
 }
 
-
-/* LOGO */
 
 .sidebar-logo {
     height: 85px;
@@ -115,7 +111,7 @@ button {
 }
 
 
-/* MENU */
+
 
 .sidebar-menu {
     flex: 1;
@@ -164,7 +160,7 @@ button {
 }
 
 
-/* BOTTOM */
+
 
 .sidebar-bottom {
     padding: 14px;
@@ -178,9 +174,7 @@ button {
 }
 
 
-/* =========================
-   MAIN
-========================= */
+
 
 .main-content {
     margin-right: var(--sidebar);
@@ -189,9 +183,7 @@ button {
 }
 
 
-/* =========================
-   TOPBAR
-========================= */
+
 
 .topbar {
     height: 82px;
@@ -225,7 +217,7 @@ button {
 }
 
 
-/* NOTIFICATION */
+
 
 .icon-button {
     width: 40px;
@@ -270,7 +262,7 @@ button {
 }
 
 
-/* PROFILE */
+
 
 .profile {
     display: flex;
@@ -313,7 +305,7 @@ button {
 }
 
 
-/* MOBILE BUTTON */
+
 
 .menu-toggle {
     display: none;
@@ -325,18 +317,14 @@ button {
 }
 
 
-/* =========================
-   CONTENT
-========================= */
+
 
 .dashboard-content {
     padding: 28px;
 }
 
 
-/* =========================
-   WELCOME
-========================= */
+
 
 .welcome-card {
     min-height: 170px;
@@ -384,9 +372,7 @@ button {
 }
 
 
-/* =========================
-   STATISTICS
-========================= */
+
 
 .stats-grid {
     display: grid;
@@ -484,9 +470,7 @@ button {
 }
 
 
-/* =========================
-   GRID
-========================= */
+
 
 .dashboard-grid {
     display: grid;
@@ -497,9 +481,6 @@ button {
 }
 
 
-/* =========================
-   CARDS
-========================= */
 
 .dashboard-card {
     background: white;
@@ -537,11 +518,6 @@ button {
 
     font-weight: bold;
 }
-
-
-/* =========================
-   APPOINTMENTS
-========================= */
 
 .appointments-list {
     display: flex;
@@ -613,9 +589,6 @@ button {
 }
 
 
-/* =========================
-   STATUS
-========================= */
 
 .status {
     padding: 5px 9px;
@@ -640,9 +613,7 @@ button {
 }
 
 
-/* =========================
-   DOCTORS
-========================= */
+
 
 .doctor-list {
     display: flex;
@@ -706,9 +677,6 @@ button {
 }
 
 
-/* =========================
-   QUICK ACTIONS
-========================= */
 
 .actions-grid {
     display: grid;
@@ -774,9 +742,7 @@ button {
 }
 
 
-/* =========================
-   TABLE
-========================= */
+
 
 .table-container {
     overflow-x: auto;
@@ -829,9 +795,7 @@ td {
 }
 
 
-/* =========================
-   FOOTER
-========================= */
+
 
 .dashboard-footer {
     min-height: 65px;
@@ -852,9 +816,6 @@ td {
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media (max-width: 1200px) {
 
